@@ -1,0 +1,43 @@
+-- database: ./database.db
+
+SELECT * FROM `Groups`;
+
+INSERT INTO Groups (GroupID, GroupName, TopSongs, DebutDate) VALUES
+(1, 'aespa', 'Next Level, Supernova, Drama', '2020-11-17'),
+(2, 'LE SSERAFIM', 'FEARLESS, ANTIFRAGILE, Perfect Night', '2022-05-02'),
+(3, 'Enhypen', 'Bite Me, Fever, Drunk-Dazed', '2020-11-30'),
+(4, 'Stray Kids', 'God''s Menu, S-Class, Maniac', '2018-03-25');
+
+
+INSERT INTO Members (MemberID, MemberNames, MemberImage, GroupID) VALUES
+-- aespa (GroupID: 1)
+(1, 'Karina', 'karina.jpg', 1),
+(2, 'Giselle', 'giselle.jpg', 1),
+(3, 'Winter', 'winter.jpg', 1),
+(4, 'Ningning', 'ningning.jpg', 1),
+
+-- LE SSERAFIM (GroupID: 2)
+(5, 'Chaewon', 'chaewon.jpg', 2),
+(6, 'Sakura', 'sakura.jpg', 2),
+(7, 'Yunjin', 'yunjin.jpg', 2),
+(8, 'Kazuha', 'kazuha.jpg', 2),
+(9, 'Eunchae', 'eunchae.jpg', 2),
+
+-- Enhypen (GroupID: 3)
+(10, 'Heeseung', 'heeseung.jpg', 3),
+(11, 'Jay', 'jay.jpg', 3),
+(12, 'Jake', 'jake.jpg', 3),
+(13, 'Sunghoon', 'sunghoon.jpg', 3),
+(14, 'Sunoo', 'sunoo.jpg', 3),
+(15, 'Jungwon', 'jungwon.jpg', 3),
+(16, 'Ni-ki', 'niki.jpg', 3),
+
+-- Stray Kids (GroupID: 4)
+(17, 'Bang Chan', 'bangchan.jpg', 4),
+(18, 'Lee Know', 'leeknow.jpg', 4),
+(19, 'Changbin', 'changbin.jpg', 4),
+(20, 'Hyunjin', 'hyunjin.jpg', 4),
+(21, 'Han', 'han.jpg', 4),
+(22, 'Felix', 'felix.jpg', 4),
+(23, 'Seungmin', 'seungmin.jpg', 4),
+(24, 'I.N', 'in.jpg', 4);
