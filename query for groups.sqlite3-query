@@ -41,3 +41,5 @@ INSERT INTO Members (MemberID, MemberNames, MemberImage, GroupID) VALUES
 (22, 'Felix', 'felix.jpg', 4),
 (23, 'Seungmin', 'seungmin.jpg', 4),
 (24, 'I.N', 'in.jpg', 4);
+
+

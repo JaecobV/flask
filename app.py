@@ -6,7 +6,6 @@ DATABASE = 'database.db'
 #initialises app
 app = Flask(__name__)
 
-
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
@@ -30,7 +29,8 @@ def home():
     #home page
     sql = """
         SELECT GroupName, TopSongs, DebutDate, GroupImage
-        FROM Groups;
+        FROM Groups
+        JOIN Members ON Groups.GroupID = Members.GroupID;
     """
     results = query_db(sql)
     return str(results)
