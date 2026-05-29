@@ -1,0 +1,20 @@
+body,h1,h2,h3,h4,h5,h6 {
+    font-family: Righteous, sans-serif;
+}
+
+.three-column{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2em;
+}
+
+/* all images */
+img{
+    width: 100%;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}

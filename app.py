@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, render_template
 import sqlite3
 
 DATABASE = 'database.db'
@@ -28,12 +28,12 @@ def query_db(query, args=(), one=False):
 def home():
     #home page
     sql = """
-        SELECT GroupName, TopSongs, DebutDate, GroupImage
-        FROM Groups
-        JOIN Members ON Groups.GroupID = Members.GroupID;
+        SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+        FROM Groups;
     """
     results = query_db(sql)
-    return str(results)
+    print(results)   # temporary debug line
+    return render_template("home.html", results=results)
 
 @app.route("/Group/<int:id>")
 def Group(id):
