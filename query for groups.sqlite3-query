@@ -43,3 +43,5 @@ INSERT INTO Members (MemberID, MemberNames, MemberImage, GroupID) VALUES
 (24, 'I.N', 'in.jpg', 4);
 
 
+SELECT * FROM `Groups` JOIN Members ON Members.MemberID='Groups'.MemberID
+WHERE `Groups`.GroupID = 2;

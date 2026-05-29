@@ -35,5 +35,16 @@ def home():
     results = query_db(sql)
     return str(results)
 
+@app.route("/Group/<int:id>")
+def Group(id):
+    #just one group based on the id
+    sql = """SELECT * FROM Groups 
+    JOIN Members ON Groups.GroupID=Members.GroupID
+    WHERE Groups.GroupID = ?;"""
+
+    results = query_db(sql,(id,),True)
+
+    return str(results)
+
 if __name__ == "__main__":
     app.run(debug=True)
