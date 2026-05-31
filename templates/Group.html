@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block body %}
+
+<h1>Members</h1>
+
+<div class="three-column">
+
+    {% for member in members %}
+
+    <div class="w3-card-4 card">
+        <img src="{{ member[1] }}" alt="{{ member[0] }}">
+        <h3>{{ member[0] }}</h3>
+        <div class="info">
+            <h1>Top Songs: {{ group[1] }}</h1>
+            <h1>Debut Date: {{ group[2] }}</h1>
+        </div>
+    </div>
+{% endfor %}
+
+</div>
+
+{% endblock %}

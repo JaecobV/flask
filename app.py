@@ -37,14 +37,23 @@ def home():
 
 @app.route("/Group/<int:id>")
 def Group(id):
-    #just one group based on the id
-    sql = """SELECT * FROM Groups 
-    JOIN Members ON Groups.GroupID=Members.GroupID
-    WHERE Groups.GroupID = ?;"""
 
-    results = query_db(sql,(id,),True)
+    member_sql = """
+    SELECT MemberNames, MemberImage
+    FROM Members
+    WHERE GroupID = ?;
+    """
 
-    return str(results)
+    group_sql = """
+    SELECT GroupName, TopSongs, DebutDate
+    FROM Groups
+    WHERE GroupID = ?;
+    """
+
+    members = query_db(member_sql, (id,))
+    group = query_db(group_sql, (id,), True)
+
+    return render_template("Group.html",members=members,group=group)
 
 if __name__ == "__main__":
     app.run(debug=True)

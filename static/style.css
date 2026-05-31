@@ -18,3 +18,9 @@ img{
     color: inherit;
     display: block;
 }
+
+.two-column{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3em;
+}
