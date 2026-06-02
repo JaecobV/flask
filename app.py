@@ -61,7 +61,7 @@ def Group(id):
     members = query_db(member_sql, (id,))
     group = query_db(group_sql, (id,), True)
 
-    return render_template("Group.html", members=members, group=group)
+    return render_template("group.html", "member.html", members=members, group=group)
 
 if __name__ == "__main__":
     app.run(debug=True)

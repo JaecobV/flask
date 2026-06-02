@@ -1,22 +1,17 @@
 {% extends "layout.html" %}
 {% block body %}
 
-<h1>Members</h1>
+<h1>Group</h1>
 
 <div class="three-column">
 
-    {% for member in members %}
+    {% for group in groups %}
 
     <div class="w3-card-4 card">
         <img src="{{ member[1] }}" alt="{{ member[0] }}">
         <h3>{{ member[0] }}</h3>
 
         <div class="info">
-            <p><strong>Birth Name:</strong> {{ member[2] }}</p>
-            <p><strong>Birth Date:</strong> {{ member[3] }}</p>
-            <p><strong>Nationality:</strong> {{ member[4] }}</p>
-            <p><strong>Position:</strong> {{ member[5] }}</p>
-            <p><strong>Fun Fact:</strong> {{ member[6] }}</p>
         </div>
     </div>
 {% endfor %}
