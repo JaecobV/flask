@@ -50,10 +50,17 @@ def Group(id):
     WHERE GroupID = ?;
     """
 
+    memberinfo_sql = """
+    SELECT BirthName, BirthDate, Nationality, Position, FunFact
+    FROM MemberInfo
+    WHERE GroupID = ?;
+    """
+
     members = query_db(member_sql, (id,))
     group = query_db(group_sql, (id,), True)
+    memberinfo = query_db(memberinfo_sql, (id,), True)
 
-    return render_template("Group.html",members=members,group=group)
+    return render_template("Group.html",members=members,group=group, memberinfo=memberinfo)
 
 if __name__ == "__main__":
     app.run(debug=True)
