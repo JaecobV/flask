@@ -43,5 +43,38 @@ INSERT INTO Members (MemberID, MemberNames, MemberImage, GroupID) VALUES
 (24, 'I.N', 'in.jpg', 4);
 
 
-SELECT * FROM `Groups` JOIN Members ON Members.MemberID='Groups'.MemberID
-WHERE `Groups`.GroupID = 2;
+INSERT INTO MemberInfo
+(MemberID, BirthName, BirthDate, Nationality, Position, FunFact)
+VALUES
+
+-- aespa
+(1, 'Yu Jimin', '2000-04-11', 'South Korean', 'Leader, Main Dancer, Rapper', 'Former SM trainee for several years'),
+(2, 'Uchinaga Aeri', '2000-10-30', 'Japanese-Korean', 'Main Rapper', 'Speaks Korean, Japanese, and English'),
+(3, 'Kim Minjeong', '2001-01-01', 'South Korean', 'Lead Vocalist, Lead Dancer', 'Known for strong vocals'),
+(4, 'Ning Yizhuo', '2002-10-23', 'Chinese', 'Main Vocalist', 'Youngest aespa member'),
+
+-- LE SSERAFIM
+(5, 'Kim Chaewon', '2000-08-01', 'South Korean', 'Leader, Vocalist', 'Former project group member'),
+(6, 'Miyawaki Sakura', '1998-03-19', 'Japanese', 'Vocalist', 'Started career in Japan'),
+(7, 'Huh Yunjin', '2001-10-08', 'Korean-American', 'Vocalist', 'Writes and produces music'),
+(8, 'Nakamura Kazuha', '2003-08-09', 'Japanese', 'Dancer, Vocalist', 'Former ballerina'),
+(9, 'Hong Eunchae', '2006-11-10', 'South Korean', 'Maknae, Vocalist', 'Youngest member'),
+
+-- ENHYPEN
+(10, 'Lee Heeseung', '2001-10-15', 'South Korean', 'Center, Vocalist', 'Known for versatility'),
+(11, 'Park Jongseong', '2002-04-20', 'Korean-American', 'Rapper, Vocalist', 'Born in the USA'),
+(12, 'Sim Jaeyun', '2002-11-15', 'Australian-Korean', 'Vocalist', 'Raised in Australia'),
+(13, 'Park Sunghoon', '2002-12-08', 'South Korean', 'Vocalist', 'Former figure skater'),
+(14, 'Kim Sunoo', '2003-06-24', 'South Korean', 'Vocalist', 'Known for expressions'),
+(15, 'Yang Jungwon', '2004-02-09', 'South Korean', 'Leader', 'Leader of ENHYPEN'),
+(16, 'Nishimura Riki', '2005-12-09', 'Japanese', 'Main Dancer', 'Youngest member'),
+
+-- Stray Kids
+(17, 'Christopher Bang', '1997-10-03', 'Australian-Korean', 'Leader, Producer', 'Produces many songs'),
+(18, 'Lee Minho', '1998-10-25', 'South Korean', 'Dancer', 'Former backup dancer'),
+(19, 'Seo Changbin', '1999-08-11', 'South Korean', 'Rapper', 'Known for fast rap'),
+(20, 'Hwang Hyunjin', '2000-03-20', 'South Korean', 'Dancer, Rapper', 'Known for performances'),
+(21, 'Han Jisung', '2000-09-14', 'South Korean', 'Rapper, Producer', 'Writes songs'),
+(22, 'Lee Yongbok', '2000-09-15', 'Australian', 'Dancer, Vocalist', 'Known for deep voice'),
+(23, 'Kim Seungmin', '2000-09-22', 'South Korean', 'Main Vocalist', 'Strong vocalist'),
+(24, 'Yang Jeongin', '2001-02-08', 'South Korean', 'Maknae', 'Youngest Stray Kids member');
