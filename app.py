@@ -39,28 +39,29 @@ def home():
 def Group(id):
 
     member_sql = """
-    SELECT MemberNames, MemberImage
+    SELECT Members.MemberNames,
+           Members.MemberImage,
+           MemberInfo.BirthName,
+           MemberInfo.BirthDate,
+           MemberInfo.Nationality,
+           MemberInfo.Position,
+           MemberInfo.FunFact
     FROM Members
-    WHERE GroupID = ?;
+    JOIN MemberInfo ON Members.MemberID = MemberInfo.MemberID
+    WHERE Members.GroupID = ?;
     """
 
     group_sql = """
-    SELECT GroupName, TopSongs, DebutDate
+    SELECT Groups.GroupName, Groups.TopSongs, Groups.DebutDate
     FROM Groups
     WHERE GroupID = ?;
     """
 
-    memberinfo_sql = """
-    SELECT BirthName, BirthDate, Nationality, Position, FunFact
-    FROM MemberInfo
-    WHERE GroupID = ?;
-    """
 
     members = query_db(member_sql, (id,))
     group = query_db(group_sql, (id,), True)
-    memberinfo = query_db(memberinfo_sql, (id,), True)
 
-    return render_template("Group.html",members=members,group=group, memberinfo=memberinfo)
+    return render_template("Group.html", members=members, group=group)
 
 if __name__ == "__main__":
     app.run(debug=True)
