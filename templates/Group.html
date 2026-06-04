@@ -1,6 +1,19 @@
 {% extends "layout.html" %}
 {% block body %}
-<
+<h1>Group</h1>
+<div class="two-column"></div>
+
+    <div class="w3-card-4 card">
+        <img src="{{ group[3] }}" alt="{{ group[0] }}">
+        <h3>{{ group[0] }}</h3>
+
+        <div class="info">
+        <h2>Group Name: {{ group[0] }} </h2>
+        <h2>Top Songs: {{ group[1] }}</h2>
+        <h2>Debut Date: {{ group[2] }}</h2>
+        </div>
+    </div>
+
 <h1>Members</h1>
 
 <div class="three-column">
