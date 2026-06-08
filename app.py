@@ -55,7 +55,8 @@ def Group(id):
     SELECT Groups.GroupName, 
     Groups.TopSongs, 
     Groups.DebutDate,
-    Groups.GroupImage
+    Groups.GroupImage,
+    Groups.GroupImageAlt
     FROM Groups
     WHERE GroupID = ?;
     """
