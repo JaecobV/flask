@@ -56,7 +56,8 @@ def Group(id):
     Groups.TopSongs, 
     Groups.DebutDate,
     Groups.GroupImage,
-    Groups.GroupImageAlt
+    Groups.GroupImageAlt,
+    Groups.VideoURL
     FROM Groups
     WHERE GroupID = ?;
     """
