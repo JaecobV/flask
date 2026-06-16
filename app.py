@@ -40,12 +40,12 @@ def Group(id):
 
     member_sql = """
     SELECT Members.MemberNames,
-           Members.MemberImage,
-           MemberInfo.BirthName,
-           MemberInfo.BirthDate,
-           MemberInfo.Nationality,
-           MemberInfo.Position,
-           MemberInfo.FunFact
+    Members.MemberImage,
+    MemberInfo.BirthName,
+    MemberInfo.BirthDate,
+    MemberInfo.Nationality,
+    MemberInfo.Position,
+    MemberInfo.FunFact
     FROM Members
     JOIN MemberInfo ON Members.MemberID = MemberInfo.MemberID
     WHERE Members.GroupID = ?;
@@ -57,14 +57,14 @@ def Group(id):
     Groups.DebutDate,
     Groups.GroupImage,
     Groups.GroupImageAlt,
-    Groups.VideoURL
+    Groups.VideoURL,
+    Groups.ThemeClass
     FROM Groups
     WHERE GroupID = ?;
     """
 
     members = query_db(member_sql, (id,))
     group = query_db(group_sql, (id,), True)
-
     return render_template("group.html", members=members, group=group)
 
 if __name__ == "__main__":

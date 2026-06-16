@@ -8,6 +8,12 @@ body,h1,h2,h3,h4,h5,h6 {
     gap: 2em;
 }
 
+.four-column{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2em;
+}
+
 /* all images */
 img{
     width: 100%;
@@ -59,4 +65,14 @@ img{
 
 .group-top iframe{
     flex-shrink: 0;
+}
+
+/*default group page*/
+.group-page{
+    color: black;
+}
+
+/*aespa page*/
+.group-aespa{
+    
 }

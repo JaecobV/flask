@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
+<div class="group-page " {{ group[6]}}>
 <h1>Group</h1>
 <div class="group-top">
 
@@ -15,13 +16,15 @@
     </div>
 
 <!--youtube video-->
-<iframe src="{{ group[5] }}" width = "600", height = "400", style = "border: none;" allowfullscreen></iframe>
+<div class="w3-card-4 card">
+    <iframe src="{{ group[5] }}" width = "600", height = "400", style = "border: none;" allowfullscreen></iframe>
+</div>
 
 </div>
 
 <h1>Members</h1>
 
-<div class="three-column">
+<div class="four-column">
     
     {% for member in members %}
 
@@ -40,5 +43,5 @@
 {% endfor %}
 
 </div>
-
+</div>
 {% endblock %}
