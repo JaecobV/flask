@@ -21,17 +21,42 @@ img{
     display: block;
 }
 
+.one-column{
+    display: grid;
+    grid-template-columns: 1fr 0fr;
+    gap: 2em;
+}
+
 .two-column{
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3em;
 }
 
+/*group image*/
 .group-img{
-    width: 40%;
-    height: 300px;
+    width: 600px;
+    height: 400px;
+    object-fit: cover;
 }
 
-.member-img{
+/*member image*/
+.member-image{
+    width: 467px;
+    height: 500px;
+    object-fit: cover;
+}
 
+.group-top{
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+.group-top .card{
+    flex: 1;
+}
+
+.group-top iframe{
+    flex-shrink: 0;
 }

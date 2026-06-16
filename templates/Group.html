@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
 <h1>Group</h1>
-<div class="two-column"></div>
+<div class="group-top">
 
     <div class="w3-card-4 card">
         <img class="group-img" src="{{ group[4] }}" alt="{{ group[0] }}">
@@ -15,13 +15,14 @@
     </div>
 
 <!--youtube video-->
-<iframe src="{{ group[5] }}" width="550" height="345" style="border: none;" allowfullscreen>
-</iframe>
+<iframe src="{{ group[5] }}" width = "600", height = "400", style = "border: none;" allowfullscreen></iframe>
+
+</div>
 
 <h1>Members</h1>
 
 <div class="three-column">
-
+    
     {% for member in members %}
 
     <div class="w3-card-4 card">

@@ -62,7 +62,6 @@ def Group(id):
     WHERE GroupID = ?;
     """
 
-
     members = query_db(member_sql, (id,))
     group = query_db(group_sql, (id,), True)
 
