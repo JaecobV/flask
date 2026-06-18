@@ -48,23 +48,37 @@ img{
 
 /*member image*/
 .member-image{
-    width: 467px;
-    height: 500px;
+    width: 100%;
+    height: 400px;
     object-fit: cover;
 }
 
 .group-top{
     display: flex;
     gap: 20px;
-    align-items: flex-start;
+    align-items: stretch;
 }
 
 .group-top .card{
     flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.group-top iframe{
-    flex-shrink: 0;
+.video-card{
+    display: flex;
+}
+
+.video-wrapper{
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: auto;
+}
+
+.video-wrapper iframe{
+    width: 100%;
+    height: 100%;
+    border: none;
 }
 
 /*default group page*/
@@ -73,6 +87,10 @@ img{
 }
 
 /*aespa page*/
-.group-aespa{
-    
+.group-page.aespa{
+    color: rgb(255, 0, 0);
+}
+
+.group-page.aespa h1{
+    color: rgb(255, 0, 0);
 }

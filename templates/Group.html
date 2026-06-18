@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="group-page " {{ group[6]}}>
+<div class="group-page {{ group[6] }}">
 <h1>Group</h1>
 <div class="group-top">
 
@@ -17,7 +17,9 @@
 
 <!--youtube video-->
 <div class="w3-card-4 card">
-    <iframe src="{{ group[5] }}" width = "600", height = "400", style = "border: none;" allowfullscreen></iframe>
+    <div class="video-wrapper">
+        <iframe src="{{ group[5] }}" width = "600", height = "400", style = "border: none;" allowfullscreen></iframe>
+    </div>
 </div>
 
 </div>
