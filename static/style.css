@@ -91,6 +91,14 @@ img{
     color: rgb(255, 0, 0);
 }
 
-.group-page.aespa h1{
-    color: rgb(255, 0, 0);
+.group-page.lesserafim{
+    color: rgb(186, 160, 135);
+}
+
+.group-page.enhypen{
+    color: rgb(187, 14, 44);
+}
+
+.group-page.straykids{
+    color: rgb(255, 110, 199);
 }
