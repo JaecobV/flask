@@ -14,22 +14,9 @@ body,h1,h2,h3,h4,h5,h6 {
     gap: 2em;
 }
 
-/* all images */
-img{
-    width: 100%;
-    height: 300px;
-    object-fit: cover;
-}
-
-.card-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-}
-
 .one-column{
     display: grid;
-    grid-template-columns: 1fr 0fr;
+    grid-template-columns: 1fr;
     gap: 2em;
 }
 
@@ -39,11 +26,25 @@ img{
     gap: 3em;
 }
 
+/* all images */
+img{
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
 /*group image*/
 .group-img{
-    width: 600px;
+    width: 100%;
+    max-width: 720px;
     height: 400px;
     object-fit: cover;
+}
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
 }
 
 /*member image*/
@@ -53,8 +54,11 @@ img{
     object-fit: cover;
 }
 
+/* group page layout */
+
 .group-top{
-    display: flex;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
     align-items: stretch;
 }
@@ -63,16 +67,27 @@ img{
     flex: 1;
     display: flex;
     flex-direction: column;
+    height: 100%;
 }
 
-.video-card{
+/* columns */
+
+.left{
     display: flex;
+    flex-direction: column;
 }
+
+.right{
+    display: flex;
+    flex-direction: column;
+}
+
+/* youtube video */
 
 .video-wrapper{
     width: 100%;
     aspect-ratio: 16 / 9;
-    margin: auto;
+    flex-shrink: 0;
 }
 
 .video-wrapper iframe{

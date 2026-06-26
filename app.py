@@ -58,7 +58,8 @@ def Group(id):
     Groups.GroupImage,
     Groups.GroupImageAlt,
     Groups.VideoURL,
-    Groups.ThemeClass
+    Groups.ThemeClass,
+    Groups.GroupSong
     FROM Groups
     WHERE GroupID = ?;
     """
