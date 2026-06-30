@@ -41,6 +41,20 @@ img{
     object-fit: cover;
 }
 
+.title{
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.card{
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+img{
+    border-radius: 10px;
+}
+
 .card-link {
     text-decoration: none;
     color: inherit;
