@@ -102,13 +102,12 @@ img{
 
 .video-wrapper{
     width: 100%;
-    aspect-ratio: 16 / 9;
     flex-shrink: 0;
 }
 
 .video-wrapper iframe{
     width: 100%;
-    height: 100%;
+    height: 340px;
     border: none;
 }
 
@@ -138,17 +137,29 @@ nav{
 
 /*aespa page*/
 .group-page.aespa{
-    color: rgb(255, 0, 0);
+    color: rgb(167, 109, 255);
 }
 
 .group-page.lesserafim{
-    color: rgb(186, 160, 135);
+    color: rgb(129, 165, 249);
 }
 
 .group-page.enhypen{
-    color: rgb(187, 14, 44);
+    color: rgb(178, 12, 52);
 }
 
 .group-page.straykids{
-    color: rgb(255, 110, 199);
+    color: rgb(242, 211, 53);
+}
+
+.group-page.illit{
+    color: rgb(188, 174, 207);
+}
+
+.group-page.h2h{
+    color: rgb(244, 194, 194);
+}
+
+.group-page.izna{
+        color: rgb(255, 16, 114);
 }
