@@ -46,6 +46,7 @@ img{
     padding: 60px 20px;
 }
 
+/*round card*/
 .card{
     border-radius: 15px;
     overflow: hidden;
@@ -55,6 +56,7 @@ img{
     border-radius: 10px;
 }
 
+/* allows the whole card to be interacted with*/
 .card-link {
     text-decoration: none;
     color: inherit;
@@ -113,6 +115,25 @@ img{
 /*default group page*/
 .group-page{
     color: black;
+}
+
+/*spacing*/
+h1, h2, h3{
+    margin-bottom: 20px;
+}
+
+.card{
+    padding: 15px;
+}
+
+.info{
+    padding: 10px;
+}
+
+/*navbar*/
+nav{
+    border-radius: 10px;
+    margin-bottom: 30px;
 }
 
 /*aespa page*/
