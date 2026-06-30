@@ -3,7 +3,7 @@
 <!--home page goes here-->
 <!--3 column grid-->
  <div class="three-column">
-    {% for Group in results[:4] %}
+    {% for Group in results %}
     <a href="{{url_for('Group', id=Group[0])}}">
         <div class="w3-card-4 card">
             <!--the name then the image-->

@@ -1,0 +1,71 @@
+-- database: ./database.db
+
+SELECT * FROM MemberInfo;
+
+-- New Groups
+INSERT INTO Groups (GroupID, GroupName, TopSongs, DebutDate) VALUES
+(5, 'ILLIT', 'Magnetic, Lucky Girl Syndrome, Cherish (My Love)', '2024-03-25'),
+(6, 'Hearts2Hearts', 'The Chase', '2025-02-24'),
+(7, 'izna', 'IZNA, TIMEBOMB, SIGN', '2024-11-25');
+
+
+-- New Members
+INSERT INTO Members (MemberID, MemberNames, MemberImage, GroupID) VALUES
+
+-- ILLIT (GroupID: 5)
+(25, 'Yunah', 'yunah.jpg', 5),
+(26, 'Minju', 'minju.jpg', 5),
+(27, 'Moka', 'moka.jpg', 5),
+(28, 'Wonhee', 'wonhee.jpg', 5),
+(29, 'Iroha', 'iroha.jpg', 5),
+
+-- Hearts2Hearts (GroupID: 6)
+(30, 'Jiwoo', 'jiwoo.jpg', 6),
+(31, 'Carmen', 'carmen.jpg', 6),
+(32, 'Yuha', 'yuha.jpg', 6),
+(33, 'Stella', 'stella.jpg', 6),
+(34, 'Juun', 'juun.jpg', 6),
+(35, 'A-na', 'ana.jpg', 6),
+(36, 'Ian', 'ian.jpg', 6),
+(37, 'Ye-on', 'yeon.jpg', 6),
+
+-- izna (GroupID: 7)
+(38, 'Mai', 'mai.jpg', 7),
+(39, 'Bang Jeemin', 'jeemin.jpg', 7),
+(40, 'Koko', 'koko.jpg', 7),
+(41, 'Ryu Sarang', 'sarang.jpg', 7),
+(42, 'Choi Jungeun', 'jungeun.jpg', 7),
+(43, 'Jeong Saebi', 'saebi.jpg', 7),
+(44, 'Yoon Jiyoon', 'jiyoon.jpg', 7);
+
+
+-- New Member Info
+INSERT INTO MemberInfo
+(MemberID, BirthName, BirthDate, Nationality, Position, FunFact)
+VALUES
+
+-- ILLIT
+(25, 'Noh Yunah', '2004-01-15', 'South Korean', 'Leader, Vocalist', 'Oldest member'),
+(26, 'Park Minju', '2004-05-11', 'South Korean', 'Vocalist', 'Former child model'),
+(27, 'Sakai Moka', '2004-10-08', 'Japanese', 'Dancer, Vocalist', 'Known for expressive dancing'),
+(28, 'Lee Wonhee', '2007-06-26', 'South Korean', 'Center, Vocalist', 'Won R U Next? popularity'),
+(29, 'Hokazono Iroha', '2008-02-04', 'Japanese', 'Main Dancer, Maknae', 'Youngest ILLIT member'),
+
+-- Hearts2Hearts
+(30, 'Choi Jiwoo', '2006-09-07', 'South Korean', 'Leader', 'Known for leadership'),
+(31, 'Nyoman Ayu Carmenita', '2006-03-28', 'Indonesian', 'Vocalist', 'First Indonesian SM girl group member'),
+(32, 'Kim Yuha', '2007-04-12', 'South Korean', 'Vocalist', 'Recognized for visuals'),
+(33, 'Kim Stella', '2007-06-18', 'Korean-Canadian', 'Vocalist', 'Speaks English fluently'),
+(34, 'Kim Juun', '2008-01-03', 'South Korean', 'Dancer', 'Strong performer'),
+(35, 'Noh A-na', '2008-12-20', 'South Korean', 'Vocalist', 'Known for bright personality'),
+(36, 'Jeong Ian', '2009-02-11', 'South Korean', 'Rapper', 'Young member with strong stage presence'),
+(37, 'Kim Ye-on', '2010-05-19', 'South Korean', 'Maknae', 'Youngest member'),
+
+-- izna
+(38, 'Tomioka Mai', '2004-10-28', 'Japanese', 'Vocalist', 'Known for elegant performances'),
+(39, 'Bang Jeemin', '2005-05-08', 'South Korean', 'Center', 'Former R U Next? contestant'),
+(40, 'Koko', '2006-11-14', 'Japanese', 'Main Dancer', 'Strong dance skills'),
+(41, 'Ryu Sarang', '2007-04-18', 'South Korean', 'Vocalist', 'Popular for stage charisma'),
+(42, 'Choi Jungeun', '2007-08-04', 'South Korean', 'Main Vocalist', 'Strong vocal ability'),
+(43, 'Jeong Saebi', '2008-01-22', 'South Korean', 'Vocalist', 'Known for visuals'),
+(44, 'Yoon Jiyoon', '2008-07-09', 'South Korean', 'Maknae', 'Youngest izna member');
