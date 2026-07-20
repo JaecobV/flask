@@ -1,6 +1,11 @@
 {% extends "layout.html" %}
 {% block body %}
 <!--home page goes here-->
+<!--search bar-->
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <input type="text" placeholder="Search..">
+</div>
 <!--3 column grid-->
  <div class="three-column">
     {% for Group in results %}
