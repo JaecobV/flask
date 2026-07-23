@@ -27,13 +27,23 @@ def query_db(query, args=(), one=False):
 @app.route('/')
 def home():
     #home page
-    sql = """
+    search = request.args.get("search", "")
+
+    if search: 
+        sql = """
+        SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+        FROM Groups
+        WHERE GroupName LIKE ?;
+        """
+        results = query_db(sql, ('%' + search + '%',))
+    else: 
+        sql = """
         SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
         FROM Groups;
-    """
-    results = query_db(sql)
-    print(results)   # temporary debug line
-    return render_template("home.html", results=results)
+        """
+        results = query_db(sql)
+
+    return render_template("home.html", results=results, search=search)
 
 @app.route("/Group/<int:id>")
 def Group(id):

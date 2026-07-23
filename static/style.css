@@ -86,43 +86,44 @@ img{
     height: 100%;
 }
 
-/* Add a black background color to the top navigation bar */
+/* Navigation bar */
 .topnav {
-  overflow: hidden;
-  background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: black;
+    padding: 10px;
 }
 
-/* Style the links inside the navigation bar */
+/* Home link */
 .topnav a {
-  float: left;
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  font-size: 17px;
+    color: white;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
 }
 
-/* Change the color of links on hover */
+/* Hover effect */
 .topnav a:hover {
-  background-color: #ddd;
-  color: black;
+    background-color: #ddd;
+    color: black;
 }
 
-/* Style the "active" element to highlight the current page */
-.topnav a.active {
-  background-color: black;
-  color: white;
-}
-
-/* Style the search box inside the navigation bar */
+/* Search section */
 .topnav input[type=text] {
-  float: right;
-  padding: 6px;
-  border: none;
-  margin-top: 8px;
-  margin-right: 16px;
-  font-size: 17px;
+    padding: 8px;
+    font-size: 17px;
+    border: none;
+    border-radius: 5px;
+}
+
+/* Search button */
+.topnav button {
+    padding: 8px 12px;
+    font-size: 17px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
 }
 
 /* columns */

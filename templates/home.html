@@ -2,10 +2,16 @@
 {% block body %}
 <!--home page goes here-->
 <!--search bar-->
+<form method="GET">
 <div class="topnav">
-  <a class="active" href="#home">Home</a>
-  <input type="text" placeholder="Search..">
+    <a class="active" href="/">Home</a>
+    <div>
+    <input type="text" name="search" placeholder="Search..">
+    <button type="submit">Search</button>
 </div>
+</div>
+</form>
+
 <!--3 column grid-->
  <div class="three-column">
     {% for Group in results %}
@@ -16,6 +22,15 @@
             <img src="{{ Group[4] }}" alt="{{ Group[1] }}">
         </div>
     </a>
+
+    {% else %}
+
+    <h2>No groups found.</h2>
+    <p>Try searching for another group</p>
+
     {% endfor %}
+
  </div>
+
+
 {% endblock %}
