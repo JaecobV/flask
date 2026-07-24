@@ -69,3 +69,207 @@ VALUES
 (42, 'Choi Jungeun', '2007-08-04', 'South Korean', 'Main Vocalist', 'Strong vocal ability'),
 (43, 'Jeong Saebi', '2008-01-22', 'South Korean', 'Vocalist', 'Known for visuals'),
 (44, 'Yoon Jiyoon', '2008-07-09', 'South Korean', 'Maknae', 'Youngest izna member');
+
+INSERT INTO Groups (GroupID, GroupName, TopSongs, DebutDate) VALUES
+(8, 'IVE', 'LOVE DIVE, I AM, After LIKE', '2021-12-01'),
+(9, 'TXT', '0X1=LOVESONG, Sugar Rush Ride, Deja Vu', '2019-03-04'),
+(10, 'BLACKPINK', 'DDU-DU DDU-DU, How You Like That, Pink Venom', '2016-08-08'),
+(11, 'BABYMONSTER', 'SHEESH, BATTER UP, FOREVER', '2024-04-01'),
+(12, 'KISS OF LIFE', 'Sticky, Midas Touch, Shhh', '2023-07-05'),
+(13, 'NewJeans', 'Hype Boy, Ditto, Super Shy', '2022-07-22'),
+(14, 'ITZY', 'WANNABE, DALLA DALLA, CAKE', '2019-02-12'),
+(15, 'NMIXX', 'Love Me Like This, DASH, See That?', '2022-02-22'),
+(16, 'ATEEZ', 'BOUNCY, Wonderland, Crazy Form', '2018-10-24'),
+(17, 'MEOVV', 'MEOW, BODY', '2024-09-06'),
+(18, 'BTS', 'Dynamite, Butter, Spring Day', '2013-06-13'),
+(19, 'P1Harmony', 'Killin'' It, Do It Like This, SAD SONG', '2020-10-28');
+
+INSERT INTO Members (MemberID, MemberNames, MemberImage, GroupID) VALUES
+
+-- IVE (GroupID: 8)
+(45, 'Yujin', 'yujin.jpg', 8),
+(46, 'Gaeul', 'gaeul.jpg', 8),
+(47, 'Rei', 'rei.jpg', 8),
+(48, 'Wonyoung', 'wonyoung.jpg', 8),
+(49, 'Liz', 'liz.jpg', 8),
+(50, 'Leeseo', 'leeseo.jpg', 8),
+
+-- TXT (GroupID: 9)
+(51, 'Soobin', 'soobin.jpg', 9),
+(52, 'Yeonjun', 'yeonjun.jpg', 9),
+(53, 'Beomgyu', 'beomgyu.jpg', 9),
+(54, 'Taehyun', 'taehyun.jpg', 9),
+(55, 'Huening Kai', 'hueningkai.jpg', 9),
+
+-- BLACKPINK (GroupID: 10)
+(56, 'Jisoo', 'jisoo.jpg', 10),
+(57, 'Jennie', 'jennie.jpg', 10),
+(58, 'Rosé', 'rose.jpg', 10),
+(59, 'Lisa', 'lisa.jpg', 10),
+
+-- BABYMONSTER (GroupID: 11)
+(60, 'Ruka', 'ruka.jpg', 11),
+(61, 'Pharita', 'pharita.jpg', 11),
+(62, 'Asa', 'asa.jpg', 11),
+(63, 'Ahyeon', 'ahyeon.jpg', 11),
+(64, 'Rami', 'rami.jpg', 11),
+(65, 'Rora', 'rora.jpg', 11),
+(66, 'Chiquita', 'chiquita.jpg', 11),
+
+-- KISS OF LIFE (GroupID: 12)
+(67, 'Julie', 'julie.jpg', 12),
+(68, 'Natty', 'natty.jpg', 12),
+(69, 'Belle', 'belle.jpg', 12),
+(70, 'Haneul', 'haneul.jpg', 12),
+
+-- NewJeans (GroupID: 13)
+(71, 'Minji', 'minji.jpg', 13),
+(72, 'Hanni', 'hanni.jpg', 13),
+(73, 'Danielle', 'danielle.jpg', 13),
+(74, 'Haerin', 'haerin.jpg', 13),
+(75, 'Hyein', 'hyein.jpg', 13),
+
+-- ITZY (GroupID: 14)
+(76, 'Yeji', 'yeji.jpg', 14),
+(77, 'Lia', 'lia.jpg', 14),
+(78, 'Ryujin', 'ryujin.jpg', 14),
+(79, 'Chaeryeong', 'chaeryeong.jpg', 14),
+(80, 'Yuna', 'yuna.jpg', 14),
+
+-- NMIXX (GroupID: 15)
+(81, 'Lily', 'lily.jpg', 15),
+(82, 'Haewon', 'haewon.jpg', 15),
+(83, 'Sullyoon', 'sullyoon.jpg', 15),
+(84, 'Bae', 'bae.jpg', 15),
+(85, 'Jiwoo', 'jiwoo_nm.jpg', 15),
+(86, 'Kyujin', 'kyujin.jpg', 15),
+
+-- ATEEZ (GroupID: 16)
+(87, 'Hongjoong', 'hongjoong.jpg', 16),
+(88, 'Seonghwa', 'seonghwa.jpg', 16),
+(89, 'Yunho', 'yunho.jpg', 16),
+(90, 'Yeosang', 'yeosang.jpg', 16),
+(91, 'San', 'san.jpg', 16),
+(92, 'Mingi', 'mingi.jpg', 16),
+(93, 'Wooyoung', 'wooyoung.jpg', 16),
+(94, 'Jongho', 'jongho.jpg', 16),
+
+-- MEOVV (GroupID: 17)
+(95, 'Sooin', 'sooin.jpg', 17),
+(96, 'Gawon', 'gawon.jpg', 17),
+(97, 'Anna', 'anna.jpg', 17),
+(98, 'Narin', 'narin.jpg', 17),
+(99, 'Ella', 'ella.jpg', 17),
+
+-- BTS (GroupID: 18)
+(100, 'RM', 'rm.jpg', 18),
+(101, 'Jin', 'jin.jpg', 18),
+(102, 'SUGA', 'suga.jpg', 18),
+(103, 'j-hope', 'jhope.jpg', 18),
+(104, 'Jimin', 'jimin.jpg', 18),
+(105, 'V', 'v.jpg', 18),
+(106, 'Jung Kook', 'jungkook.jpg', 18),
+
+-- P1Harmony (GroupID: 19)
+(107, 'Keeho', 'keeho.jpg', 19),
+(108, 'Theo', 'theo.jpg', 19),
+(109, 'Jiung', 'jiung.jpg', 19),
+(110, 'Intak', 'intak.jpg', 19),
+(111, 'Soul', 'soul.jpg', 19),
+(112, 'Jongseob', 'jongseob.jpg', 19);
+
+INSERT INTO MemberInfo
+(MemberID, BirthName, BirthDate, Nationality, Position, FunFact)
+VALUES
+
+-- IVE (GroupID: 8)
+(45, 'An Yujin', '2003-09-01', 'South Korean', 'Leader, Vocalist, Dancer', 'Former IZ*ONE member'),
+(46, 'Kim Gaeul', '2002-09-24', 'South Korean', 'Rapper, Dancer', 'Oldest member of IVE'),
+(47, 'Naoi Rei', '2004-02-03', 'Japanese', 'Rapper, Vocalist', 'First Japanese idol from Starship Entertainment'),
+(48, 'Jang Wonyoung', '2004-08-31', 'South Korean', 'Center, Vocalist', 'Former IZ*ONE center'),
+(49, 'Kim Jiwon', '2004-11-21', 'South Korean', 'Main Vocalist', 'Known for her unique vocal tone'),
+(50, 'Lee Hyunseo', '2007-02-21', 'South Korean', 'Vocalist, Maknae', 'Youngest member of IVE'),
+
+-- TXT (GroupID: 9)
+(51, 'Choi Soobin', '2000-12-05', 'South Korean', 'Leader, Vocalist', 'Leader of TXT'),
+(52, 'Choi Yeonjun', '1999-09-13', 'South Korean', 'Dancer, Rapper, Vocalist', 'Oldest member of TXT'),
+(53, 'Choi Beomgyu', '2001-03-13', 'South Korean', 'Vocalist, Dancer', 'Known for playing guitar'),
+(54, 'Kang Taehyun', '2002-02-05', 'South Korean', 'Main Vocalist', 'Known for strong vocals'),
+(55, 'Kai Kamal Huening', '2002-08-14', 'Korean-American', 'Vocalist, Maknae', 'First foreign member of TXT'),
+
+-- BLACKPINK (GroupID: 10)
+(56, 'Kim Jisoo', '1995-01-03', 'South Korean', 'Lead Vocalist, Visual', 'Oldest member of BLACKPINK'),
+(57, 'Jennie Kim', '1996-01-16', 'South Korean', 'Main Rapper, Vocalist', 'First BLACKPINK member to release a solo song'),
+(58, 'Roseanne Park', '1997-02-11', 'Korean-New Zealander', 'Main Vocalist, Guitarist', 'Known for her unique voice'),
+(59, 'Lalisa Manobal', '1997-03-27', 'Thai', 'Main Dancer, Rapper', 'First non-Korean artist under YG Entertainment'),
+
+-- BABYMONSTER (GroupID: 11)
+(60, 'Kawai Ruka', '2002-03-20', 'Japanese', 'Rapper, Dancer', 'Oldest member of BABYMONSTER'),
+(61, 'Pharita Chaikong', '2005-08-26', 'Thai', 'Vocalist', 'Second Thai member from YG Entertainment'),
+(62, 'Enami Asa', '2006-04-17', 'Japanese', 'Rapper, Dancer', 'Known for powerful dance skills'),
+(63, 'Jung Ahyeon', '2007-04-11', 'South Korean', 'Vocalist, Rapper', 'Known as an all-rounder'),
+(64, 'Shin Haram', '2007-10-17', 'South Korean', 'Main Vocalist', 'Known by stage name Rami'),
+(65, 'Lee Dain', '2008-08-14', 'South Korean', 'Vocalist', 'Known by stage name Rora'),
+(66, 'Chiquita Riracha', '2009-02-17', 'Thai', 'Vocalist, Maknae', 'Youngest BABYMONSTER member'),
+
+-- KISS OF LIFE (GroupID: 12)
+(67, 'Julie Han', '2000-03-29', 'Korean-American', 'Leader, Rapper', 'Oldest member of KISS OF LIFE'),
+(68, 'Anatchaya Suputhipong', '2002-05-30', 'Thai', 'Dancer, Vocalist', 'Former trainee at JYP Entertainment'),
+(69, 'Shim Hyejin', '2004-03-20', 'South Korean', 'Main Vocalist', 'Known as Belle'),
+(70, 'Won Haneul', '2005-05-25', 'South Korean', 'Vocalist, Maknae', 'Youngest member of KISS OF LIFE'),
+
+-- NewJeans (GroupID: 13)
+(71, 'Kim Minji', '2004-05-07', 'South Korean', 'Leader, Vocalist', 'Oldest member of NewJeans'),
+(72, 'Hanni Pham', '2004-10-06', 'Vietnamese-Australian', 'Vocalist', 'First Vietnamese idol under HYBE'),
+(73, 'Danielle Marsh', '2005-04-11', 'Korean-Australian', 'Vocalist', 'Bilingual in Korean and English'),
+(74, 'Kang Haerin', '2006-05-15', 'South Korean', 'Vocalist', 'Known for her unique vocal colour'),
+(75, 'Lee Hyein', '2008-04-21', 'South Korean', 'Vocalist, Maknae', 'Youngest member of NewJeans'),
+
+-- ITZY (GroupID: 14)
+(76, 'Hwang Yeji', '2000-05-26', 'South Korean', 'Leader, Main Dancer', 'Known for powerful performances'),
+(77, 'Choi Jisu', '2000-07-21', 'South Korean', 'Main Vocalist', 'Known by stage name Lia'),
+(78, 'Shin Ryujin', '2001-04-17', 'South Korean', 'Main Rapper, Dancer', 'Won Mixnine competition'),
+(79, 'Lee Chaeryeong', '2001-06-05', 'South Korean', 'Main Dancer, Vocalist', 'Former SIXTEEN contestant'),
+(80, 'Shin Yuna', '2003-12-09', 'South Korean', 'Rapper, Vocalist, Maknae', 'Youngest ITZY member'),
+
+-- NMIXX (GroupID: 15)
+(81, 'Lily Jin Morrow', '2002-10-17', 'Korean-Australian', 'Main Vocalist', 'Former K-pop Star contestant'),
+(82, 'Oh Haewon', '2003-02-25', 'South Korean', 'Leader, Vocalist', 'Leader of NMIXX'),
+(83, 'Seol Yoona', '2004-01-26', 'South Korean', 'Vocalist, Visual', 'Known as Sullyoon'),
+(84, 'Bae Jinsol', '2004-12-28', 'South Korean', 'Vocalist, Dancer', 'Known for bright personality'),
+(85, 'Kim Jiwoo', '2005-04-13', 'South Korean', 'Rapper, Dancer', 'Known as Jiwoo'),
+(86, 'Jang Kyujin', '2006-05-26', 'South Korean', 'Dancer, Vocalist, Maknae', 'Youngest NMIXX member'),
+
+-- ATEEZ (GroupID: 16)
+(87, 'Kim Hongjoong', '1998-11-07', 'South Korean', 'Leader, Rapper', 'Produces many ATEEZ songs'),
+(88, 'Park Seonghwa', '1998-04-03', 'South Korean', 'Vocalist, Visual', 'Oldest member of ATEEZ'),
+(89, 'Jeong Yunho', '1999-03-23', 'South Korean', 'Dancer, Vocalist', 'Known for powerful dancing'),
+(90, 'Kang Yeosang', '1999-06-15', 'South Korean', 'Vocalist', 'Known for visuals'),
+(91, 'Choi San', '1999-07-10', 'South Korean', 'Vocalist, Performer', 'Known for expressive performances'),
+(92, 'Song Mingi', '1999-08-09', 'South Korean', 'Rapper', 'Known for deep voice'),
+(93, 'Jung Wooyoung', '1999-11-26', 'South Korean', 'Dancer, Vocalist', 'Known for energetic personality'),
+(94, 'Choi Jongho', '2000-10-12', 'South Korean', 'Main Vocalist, Maknae', 'Powerful high notes'),
+
+-- MEOVV (GroupID: 17)
+(95, 'Choi Sooin', '2005-04-12', 'South Korean', 'Leader, Vocalist', 'Member of THE BLACK LABEL group'),
+(96, 'Gawon', '2005-04-27', 'South Korean', 'Vocalist', 'Known for modelling experience'),
+(97, 'Tanaka Anna', '2005-11-17', 'Japanese', 'Vocalist', 'Japanese member of MEOVV'),
+(98, 'Narin', '2007-08-15', 'South Korean', 'Rapper, Vocalist', 'Known for stage presence'),
+(99, 'Ella Gross', '2008-12-01', 'American-Korean', 'Vocalist, Maknae', 'Former child model'),
+
+-- BTS (GroupID: 18)
+(100, 'Kim Namjoon', '1994-09-12', 'South Korean', 'Leader, Rapper', 'Leader of BTS'),
+(101, 'Kim Seokjin', '1992-12-04', 'South Korean', 'Vocalist', 'Oldest BTS member'),
+(102, 'Min Yoongi', '1993-03-09', 'South Korean', 'Rapper, Producer', 'Produces music as SUGA'),
+(103, 'Jung Hoseok', '1994-02-18', 'South Korean', 'Main Dancer, Rapper', 'Known as j-hope'),
+(104, 'Park Jimin', '1995-10-13', 'South Korean', 'Vocalist, Dancer', 'Known for contemporary dance'),
+(105, 'Kim Taehyung', '1995-12-30', 'South Korean', 'Vocalist', 'Known as V'),
+(106, 'Jeon Jungkook', '1997-09-01', 'South Korean', 'Main Vocalist, Maknae', 'Youngest BTS member'),
+
+-- P1Harmony (GroupID: 19)
+(107, 'Yoon Keeho', '2001-09-27', 'Korean-Canadian', 'Leader, Vocalist', 'Leader of P1Harmony'),
+(108, 'Choi Taeyang', '2001-07-01', 'South Korean', 'Vocalist, Dancer', 'Known as Theo'),
+(109, 'Choi Jiung', '2001-10-07', 'South Korean', 'Rapper, Vocalist', 'All-round performer'),
+(110, 'Hwang Intak', '2003-08-31', 'South Korean', 'Rapper, Dancer', 'Known for songwriting'),
+(111, 'Haku Shota', '2005-02-01', 'Japanese', 'Dancer, Rapper', 'Known as Soul'),
+(112, 'Kim Jongseob', '2005-11-19', 'South Korean', 'Main Rapper, Maknae', 'Former Kpop Star contestant');
