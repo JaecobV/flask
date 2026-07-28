@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
-<div class="group-page {{ group[6] }}">
+<div class="group-page {{ group[7] }}">
 <h1>Group</h1>
 <div class="group-top">
 <div class="left"> 
@@ -14,21 +14,32 @@
         <h2>Debut Date: {{ group[2] }}</h2>
         </div>
     </div>
-    </div>
+</div>
 <!--youtube video-->
 
 <div class="right"> 
     <div class="w3-card-4 card">
+        <h2>Learn about the group</h2>
+
         <div class="video-wrapper">
-            <iframe src="{{ group[5] }}" allowfullscreen></iframe>    
+            <iframe 
+                src="{{ group[5] }}" 
+                title="Group learning video"
+                allowfullscreen>
+            </iframe>    
         </div>
     </div>
+    <div class="w3-card-4 card">
+        <h2>Music Video</h2>
 
-
-<div class="w3-card-4 card info-card">
-    <h2>Learn about the members</h2>
-    <h3>{{ group[7] }}</h3>
-</div>
+        <div class="video-wrapper">
+            <iframe 
+                src="{{ group[6] }}" 
+                title="Group music video"
+                allowfullscreen>
+            </iframe>
+        </div>
+    </div>
 </div>
 </div>
 
