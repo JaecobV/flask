@@ -77,7 +77,6 @@ def Group(id):
     Groups.GroupImage,
     Groups.GroupImageAlt,
     Groups.VideoURL,
-    Groups.MusicVideoURL,
     Groups.ThemeClass,
     Groups.GroupSong
     FROM Groups

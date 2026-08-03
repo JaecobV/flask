@@ -12,8 +12,6 @@ body,h1,h2,h3,h4,h5,h6 {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 2em;
-    width: 100%;
-    margin-top: 20px;
 }
 
 .one-column{
@@ -209,4 +207,51 @@ nav{
 
 .group-page.izna{
         color: rgb(255, 16, 114);
+}
+
+.group-page.ive{
+        color: rgb(54, 59, 116);
+}
+
+.group-page.txt{
+        color: rgb(255, 255, 0);
+}
+
+.group-page.bp{
+        color: rgb(247, 127, 190);
+}
+
+.group-page.bm{
+        color: rgb(230, 0, 18);
+}
+
+.group-page.kofl{
+        color: rgb(227, 6, 19);
+
+}.group-page.njz{
+        color: rgb(93, 173, 236);
+}
+
+.group-page.itzy{
+        color: rgb(255, 0, 127);
+}
+
+.group-page.nmixx{
+        color: rgb(137, 207, 240);
+}
+
+.group-page.ateez{
+        color: rgb(254, 126, 1);
+}
+
+.group-page.meovv{
+        color: rgb(255, 0, 127);
+}
+
+.group-page.bts{
+        color: rgb(0, 0, 0);
+}
+
+.group-page.p1h{
+        color: rgb(142, 146, 148);
 }
