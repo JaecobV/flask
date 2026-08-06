@@ -41,9 +41,25 @@ img{
     object-fit: cover;
 }
 
+/*background image above nav bar*/
+
+.hero {
+    background-image: url("/static/images/bg.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
 .title{
     text-align: center;
     padding: 60px 20px;
+    padding: 30px;
+    border-radius: 15px;
 }
 
 /*round card*/

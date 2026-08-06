@@ -1,0 +1,22 @@
+-- database: ./database.db
+
+SELECT * FROM Companies;
+
+INSERT INTO Companies 
+(CompanyID, CompanyName, CompanyLogo, FoundedYear, Founder, CEO, Headquarters, Description)
+VALUES
+(1, 'SM Entertainment', 'sm_logo.png', 1995, 'Lee Soo-man', 'Jang Cheol-hyuk', 'Seoul, South Korea', 'One of the largest K-pop entertainment companies, known for creating groups such as EXO, Red Velvet, NCT, and aespa.'),
+
+(2, 'JYP Entertainment', 'jyp_logo.png', 1997, 'Park Jin-young', 'Jung Wook', 'Seoul, South Korea', 'A major entertainment company known for groups including TWICE, Stray Kids, ITZY, and NMIXX.'),
+
+(3, 'YG Entertainment', 'yg_logo.png', 1996, 'Yang Hyun-suk', 'Yang Min-suk', 'Seoul, South Korea', 'A company famous for its hip-hop influenced style and artists such as BLACKPINK, BIGBANG, and TREASURE.'),
+
+(4, 'HYBE Corporation', 'hybe_logo.png', 2005, 'Bang Si-hyuk', 'Lee Jae-sang', 'Seoul, South Korea', 'A global entertainment company best known for BTS, SEVENTEEN, TXT, and LE SSERAFIM.'),
+
+(5, 'Cube Entertainment', 'cube_logo.png', 2006, 'Hong Seung-sung', 'Shin Dae-nam', 'Seoul, South Korea', 'An entertainment company known for artists such as (G)I-DLE, BTOB, and Pentagon.'),
+
+(6, 'Starship Entertainment', 'starship_logo.png', 2008, 'Kim Si-dae', 'Lee Hoon-hee', 'Seoul, South Korea', 'A company known for groups such as MONSTA X, IVE, and CRAVITY.'),
+
+(7, 'FNC Entertainment', 'fnc_logo.png', 2006, 'Han Sung-ho', 'Jung Woo-sik', 'Seoul, South Korea', 'Entertainment company managing artists including FTISLAND, CNBLUE, and P1Harmony.'),
+
+(8, 'RBW', 'rbw_logo.png', 2010, 'Kim Jin-woo and Kim Do-hoon', 'Kim Jin-woo', 'Seoul, South Korea', 'Company known for groups such as MAMAMOO, ONEUS, and PURPLE KISS.');
