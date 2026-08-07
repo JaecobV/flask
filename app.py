@@ -39,7 +39,7 @@ def home():
         results = query_db(sql, (group_type,))
 
     elif search: 
-        sql = """
+        sql = """   
         SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
         FROM Groups
         WHERE GroupName LIKE ?;
@@ -86,6 +86,30 @@ def Group(id):
     members = query_db(member_sql, (id,))
     group = query_db(group_sql, (id,), True)
     return render_template("group.html", members=members, group=group)
+
+@app.route("/companies")
+def Companies():
+    connection = sqlite3.connect("database.db")
+    cursor = connection.cursor()
+
+    cursor.execute("""
+        SELECT CompanyID,
+               CompanyName,
+               CompanyLogo,
+               FoundedYear,
+               Founder,
+               CEO,
+               Headquarters,
+               Description
+        FROM Companies
+        ORDER BY CompanyName
+    """)
+
+    companies = cursor.fetchall()
+
+    connection.close()
+
+    return render_template("companies.html", companies=companies)
 
 if __name__ == "__main__":
     app.run(debug=True)

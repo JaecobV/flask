@@ -9,12 +9,17 @@
     <title>Korean Music Bands</title>
 </head>
 <body class="w3-container"> 
-    <!--shared header and nav bar-->
-<div class="hero">
-    <div class="title">
-        <h1>Korean Music Bands</h1>
-        <p>Explore popular K-pop groups, members, songs, and learning videos.</p>
-    </div>
+    <!--search bar-->
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a href="/?type=Boy Group">Boy Groups</a>
+        <a href="/?type=Girl Group">Girl Groups</a>
+        <a href="/companies">Companies</a>
+
+    <form method="GET" action="/">
+        <input type="text" name="search" placeholder="Search..">
+        <button type="submit">Search</button>
+    </form>    
 </div>
     {% block body %}
     {% endblock %}
