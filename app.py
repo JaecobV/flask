@@ -32,24 +32,24 @@ def home():
 
     if group_type:
         sql = """
-        SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
-        FROM Groups
-        WHERE GroupType = ?;
-        """
+            SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+            FROM Groups
+            WHERE GroupType = ?;
+            """
         results = query_db(sql, (group_type,))
 
     elif search: 
         sql = """   
-        SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
-        FROM Groups
-        WHERE GroupName LIKE ?;
-        """
+            SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+            FROM Groups
+            WHERE GroupName LIKE ?;
+            """
         results = query_db(sql, ('%' + search + '%',))
     else: 
         sql = """
-        SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
-        FROM Groups;
-        """
+            SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+            FROM Groups;
+            """
         results = query_db(sql)
 
     return render_template("home.html", results=results, search=search, group_type=group_type)
@@ -58,30 +58,30 @@ def home():
 def Group(id):
 
     member_sql = """
-    SELECT Members.MemberNames,
-    Members.MemberImage,
-    MemberInfo.BirthName,
-    MemberInfo.BirthDate,
-    MemberInfo.Nationality,
-    MemberInfo.Position,
-    MemberInfo.FunFact
-    FROM Members
-    JOIN MemberInfo ON Members.MemberID = MemberInfo.MemberID
-    WHERE Members.GroupID = ?;
-    """
+        SELECT Members.MemberNames,
+        Members.MemberImage,
+        MemberInfo.BirthName,
+        MemberInfo.BirthDate,
+        MemberInfo.Nationality,
+        MemberInfo.Position,
+        MemberInfo.FunFact
+        FROM Members
+        JOIN MemberInfo ON Members.MemberID = MemberInfo.MemberID
+        WHERE Members.GroupID = ?;
+        """
 
     group_sql = """
-    SELECT Groups.GroupName, 
-    Groups.TopSongs, 
-    Groups.DebutDate,
-    Groups.GroupImage,
-    Groups.GroupImageAlt,
-    Groups.VideoURL,
-    Groups.ThemeClass,
-    Groups.GroupSong
-    FROM Groups
-    WHERE GroupID = ?;
-    """
+        SELECT Groups.GroupName, 
+        Groups.TopSongs, 
+        Groups.DebutDate,
+        Groups.GroupImage,
+        Groups.GroupImageAlt,
+        Groups.VideoURL,
+        Groups.ThemeClass,
+        Groups.GroupSong
+        FROM Groups
+        WHERE GroupID = ?;
+        """
 
     members = query_db(member_sql, (id,))
     group = query_db(group_sql, (id,), True)
@@ -94,16 +94,16 @@ def Companies():
 
     cursor.execute("""
         SELECT CompanyID,
-               CompanyName,
-               CompanyLogo,
-               FoundedYear,
-               Founder,
-               CEO,
-               Headquarters,
-               Description
+        CompanyName,
+        CompanyLogo,
+        FoundedYear,
+        Founder,
+        CEO,
+        Headquarters,
+        Description
         FROM Companies
         ORDER BY CompanyName
-    """)
+        """)
 
     companies = cursor.fetchall()
 
