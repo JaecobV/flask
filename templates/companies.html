@@ -2,26 +2,17 @@
 
 {% block body %}
 
-<h1>K-pop Companies</h1>
+<h1>Entertainment Companies</h1>
 
 <div class="three-column">
 
 {% for company in companies %}
 
-<div class="w3-card-4 card">
-
-    <h2>{{ company[1] }}</h2>
-
-    <img src="{{ company[2] }}" alt="{{ company[1] }}">
-
-    <p><strong>Founded:</strong> {{ company[3] }}</p>
-    <p><strong>Founder:</strong> {{ company[4] }}</p>
-    <p><strong>CEO:</strong> {{ company[5] }}</p>
-    <p><strong>Headquarters:</strong> {{ company[6] }}</p>
-
-    <p>{{ company[7] }}</p>
-
-</div>
+    <a href="/company/{{ company[0] }}" class="card-link">
+        <div class="w3-card-4 card">
+            <img src="{{ company[2] }}" alt="{{ company[1] }}">
+        </div>
+    </a>
 
 {% endfor %}
 

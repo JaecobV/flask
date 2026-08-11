@@ -196,6 +196,16 @@ h1, h2, h3{
     padding: 10px;
 }
 
+/*company page*/
+.company-logo {
+    width: 100%;
+    height: 450px;
+    object-fit: contain;
+    object-position: left center;
+    border-radius: 10px;
+}
+
+
 /*navbar*/
 nav{
     border-radius: 10px;

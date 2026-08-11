@@ -111,5 +111,23 @@ def Companies():
 
     return render_template("companies.html", companies=companies)
 
+@app.route("/company/<int:company_id>")
+def company(company_id):
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT *
+        FROM Companies
+        WHERE CompanyID = ?
+    """, (company_id,))
+
+    company = cursor.fetchone()
+
+    conn.close()
+
+    return render_template("company.html", company=company)
+
 if __name__ == "__main__":
     app.run(debug=True)
