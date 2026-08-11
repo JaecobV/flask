@@ -153,6 +153,13 @@ img{
     cursor: pointer;
 }
 
+/* hover for search button*/
+button:hover {
+    background-color: #555;
+    color: white;
+    cursor: pointer;
+}
+
 /* columns */
 
 .left{
@@ -204,7 +211,6 @@ h1, h2, h3{
     object-position: left center;
     border-radius: 10px;
 }
-
 
 /*navbar*/
 nav{
