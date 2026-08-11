@@ -1,10 +1,11 @@
-from flask import Flask, g, render_template, request
+from flask import Flask, g, render_template, request, redirect, url_for, session
+from werkzeug.security import generate_password_hash, check_password_hash
 import sqlite3
 
 DATABASE = 'database.db'
 
-#initialises app
 app = Flask(__name__)
+app.secret_key = "your-secret-key"
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -128,6 +129,71 @@ def company(company_id):
     conn.close()
 
     return render_template("company.html", company=company)
+
+@app.route("/login", methods=["GET", "POST"])
+def login():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM Users WHERE Username = ?",(username,))
+
+        user = cursor.fetchone()
+
+        conn.close()
+
+        if user and check_password_hash(user[2], password):
+
+            session["user_id"] = user[0]
+            session["username"] = user[1]
+
+            return redirect(url_for("home"))
+
+        else:
+            return render_template("login.html",error="Incorrect username or password.")
+
+    return render_template("login.html")
+
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        hashed_password = generate_password_hash(password)
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute("INSERT INTO Users (Username, Password) VALUES (?, ?)",(username, hashed_password))
+
+            conn.commit()
+            conn.close()
+
+            return redirect(url_for("login"))
+
+        except sqlite3.IntegrityError:
+
+            conn.close()
+
+            return render_template("register.html",error="Username already exists.")
+
+    return render_template("register.html")
+
+@app.route("/logout")
+def logout():
+
+    session.clear()
+
+    return redirect(url_for("home"))
 
 if __name__ == "__main__":
     app.run(debug=True)

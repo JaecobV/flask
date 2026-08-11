@@ -9,13 +9,24 @@
     <title>Korean Music Bands</title>
 </head>
 <body class="w3-container"> 
-    <!--search bar-->
+
     <div class="topnav">
         <a class="active" href="/">Home</a>
         <a href="/?type=Boy Group">Boy Groups</a>
         <a href="/?type=Girl Group">Girl Groups</a>
         <a href="/companies">Companies</a>
 
+        {% if session.get("username") %}
+            <span>Welcome, {{ session["username"] }}</span>
+            <a href="/logout">Logout</a>
+        
+        {% else %}
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+
+        {% endif %}
+
+    <!--search bar-->
     <form method="GET" action="/">
         <input type="text" name="search" placeholder="Search..">
         <button type="submit">Search</button>
