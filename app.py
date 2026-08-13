@@ -195,5 +195,93 @@ def logout():
 
     return redirect(url_for("home"))
 
+@app.route("/vote", methods=["GET", "POST"])
+def vote():
+
+    if "user_id" not in session:
+        return redirect(url_for("login"))
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    user_id = session["user_id"]
+
+    # check if user has already voted
+    cursor.execute("SELECT * FROM Votes WHERE UserID = ?",(user_id,))
+
+    existing_vote = cursor.fetchone()
+
+    # if the user submits a vote
+    if request.method == "POST":
+
+        group_id = request.form["group_id"]
+
+        cursor.execute("INSERT INTO Votes (UserID, GroupID) VALUES (?, ?)",(user_id, group_id))
+
+        conn.commit()
+
+        # get the results after voting
+        cursor.execute("""
+            SELECT Groups.GroupName, COUNT(Votes.VoteID)
+            FROM Groups
+            LEFT JOIN Votes
+            ON Groups.GroupID = Votes.GroupID
+            GROUP BY Groups.GroupID
+            ORDER BY COUNT(Votes.VoteID) DESC
+        """)
+
+        results = cursor.fetchall()
+
+        conn.close()
+
+        return render_template("vote.html",already_voted=True,results=results)
+
+    # if they have already voted get the results
+    if existing_vote:
+
+        cursor.execute("""
+            SELECT Groups.GroupName, COUNT(Votes.VoteID)
+            FROM Groups
+            LEFT JOIN Votes
+            ON Groups.GroupID = Votes.GroupID
+            GROUP BY Groups.GroupID
+            ORDER BY COUNT(Votes.VoteID) DESC
+        """)
+
+        results = cursor.fetchall()
+
+        conn.close()
+
+        return render_template("vote.html",already_voted=True,results=results)
+
+    # get groups for users who havent voted
+    cursor.execute("SELECT * FROM Groups")
+    groups = cursor.fetchall()
+
+    conn.close()
+
+    return render_template("vote.html",groups=groups,already_voted=False)
+
+@app.route("/vote-results")
+def vote_results():
+
+    conn = sqlite3.connect("database.db")
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        SELECT Groups.GroupName, COUNT(Votes.VoteID)
+        FROM Groups
+        LEFT JOIN Votes
+        ON Groups.GroupID = Votes.GroupID
+        GROUP BY Groups.GroupID
+        ORDER BY COUNT(Votes.VoteID) DESC
+    """)
+
+    results = cursor.fetchall()
+
+    conn.close()
+
+    return render_template("vote_results.html",results=results)
+
 if __name__ == "__main__":
     app.run(debug=True)
