@@ -130,6 +130,39 @@ def company(company_id):
 
     return render_template("company.html", company=company)
 
+@app.route("/register", methods=["GET", "POST"])
+def register():
+
+    if request.method == "POST":
+
+        username = request.form["username"]
+        password = request.form["password"]
+
+        #checks how long the password is
+        if len(password) < 8:
+            return render_template("register.html",error="Password must be at least 8 characters long.")
+
+        hashed_password = generate_password_hash(password)
+
+        conn = sqlite3.connect("database.db")
+        cursor = conn.cursor()
+
+        try:
+            cursor.execute("INSERT INTO Users (Username, Password) VALUES (?, ?)",(username, hashed_password))
+
+            conn.commit()
+            conn.close()
+
+            return redirect(url_for("login"))
+
+        except sqlite3.IntegrityError:
+
+            conn.close()
+
+            return render_template("register.html",error="Username already exists.")
+
+    return render_template("register.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -159,34 +192,7 @@ def login():
 
     return render_template("login.html")
 
-@app.route("/register", methods=["GET", "POST"])
-def register():
 
-    if request.method == "POST":
-
-        username = request.form["username"]
-        password = request.form["password"]
-
-        hashed_password = generate_password_hash(password)
-
-        conn = sqlite3.connect("database.db")
-        cursor = conn.cursor()
-
-        try:
-            cursor.execute("INSERT INTO Users (Username, Password) VALUES (?, ?)",(username, hashed_password))
-
-            conn.commit()
-            conn.close()
-
-            return redirect(url_for("login"))
-
-        except sqlite3.IntegrityError:
-
-            conn.close()
-
-            return render_template("register.html",error="Username already exists.")
-
-    return render_template("register.html")
 
 @app.route("/logout")
 def logout():
@@ -206,12 +212,12 @@ def vote():
 
     user_id = session["user_id"]
 
-    # check if user has already voted
+    #checks if the user has already voted
     cursor.execute("SELECT * FROM Votes WHERE UserID = ?",(user_id,))
 
     existing_vote = cursor.fetchone()
 
-    # if the user submits a vote
+    #if the user submits a vote
     if request.method == "POST":
 
         group_id = request.form["group_id"]
@@ -220,7 +226,7 @@ def vote():
 
         conn.commit()
 
-        # get the results after voting
+        #it gets the results after voting
         cursor.execute("""
             SELECT Groups.GroupName, COUNT(Votes.VoteID)
             FROM Groups
@@ -236,7 +242,7 @@ def vote():
 
         return render_template("vote.html",already_voted=True,results=results)
 
-    # if they have already voted get the results
+    #if they have already voted get the results
     if existing_vote:
 
         cursor.execute("""
@@ -254,7 +260,7 @@ def vote():
 
         return render_template("vote.html",already_voted=True,results=results)
 
-    # get groups for users who havent voted
+    #gets groups for users who havent voted
     cursor.execute("SELECT * FROM Groups")
     groups = cursor.fetchall()
 
