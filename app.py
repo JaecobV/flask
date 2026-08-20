@@ -257,7 +257,7 @@ def vote():
 
         return render_template("vote.html",already_voted=True,results=results)
 
-    #shows the group name for users to vote if they havent yet
+    #shows the group name for users to vote if they havent
     groups = query_db("""
         SELECT GroupID, GroupName
         FROM Groups
