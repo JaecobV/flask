@@ -5,7 +5,7 @@ import sqlite3
 DATABASE = 'database.db'
 
 app = Flask(__name__)
-app.secret_key = "your-secret-key"
+app.secret_key = "random-secret-key-for-me"
 
 @app.teardown_appcontext
 def close_connection(exception):
@@ -90,10 +90,8 @@ def Group(id):
 
 @app.route("/companies")
 def Companies():
-    connection = sqlite3.connect("database.db")
-    cursor = connection.cursor()
 
-    cursor.execute("""
+    companies = query_db("""
         SELECT CompanyID,
         CompanyName,
         CompanyLogo,
@@ -106,27 +104,23 @@ def Companies():
         ORDER BY CompanyName
         """)
 
-    companies = cursor.fetchall()
-
-    connection.close()
-
     return render_template("companies.html", companies=companies)
 
 @app.route("/company/<int:company_id>")
 def company(company_id):
 
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT *
+    company = query_db("""
+        SELECT CompanyID,
+        CompanyName,
+        CompanyLogo,
+        FoundedYear,
+        Founder,
+        CEO,
+        Headquarters,
+        Description
         FROM Companies
         WHERE CompanyID = ?
-    """, (company_id,))
-
-    company = cursor.fetchone()
-
-    conn.close()
+    """, (company_id,), True)
 
     return render_template("company.html", company=company)
 
@@ -174,7 +168,10 @@ def login():
         conn = sqlite3.connect("database.db")
         cursor = conn.cursor()
 
-        cursor.execute("SELECT * FROM Users WHERE Username = ?",(username,))
+        cursor.execute(
+            "SELECT * FROM Users WHERE Username = ?",
+            (username,)
+            )
 
         user = cursor.fetchone()
 
@@ -218,7 +215,7 @@ def vote():
     existing_vote = cursor.fetchone()
 
     #if the user submits a vote
-    if request.method == "POST":
+    if request.method == "POST" and not existing_vote:
 
         group_id = request.form["group_id"]
 
@@ -260,9 +257,11 @@ def vote():
 
         return render_template("vote.html",already_voted=True,results=results)
 
-    #gets groups for users who havent voted
-    cursor.execute("SELECT * FROM Groups")
-    groups = cursor.fetchall()
+    #shows the group name for users to vote if they havent yet
+    groups = query_db("""
+        SELECT GroupID, GroupName
+        FROM Groups
+    """)
 
     conn.close()
 

@@ -35,7 +35,6 @@ img{
 
 /*group image*/
 .group-img{
-    width: 100%;
     max-width: 720px;
     height: 400px;
     object-fit: cover;
@@ -151,7 +150,7 @@ img{
 }
 
 /* hover for search button*/
-button:hover {
+.topnav button:hover {
     background-color: #555;
     color: white;
 }
@@ -258,7 +257,6 @@ nav{
 
 .group-page.kofl{
         color: rgb(227, 6, 19);
-
 }.group-page.njz{
         color: rgb(93, 173, 236);
 }
