@@ -267,26 +267,5 @@ def vote():
 
     return render_template("vote.html",groups=groups,already_voted=False)
 
-@app.route("/vote-results")
-def vote_results():
-
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-
-    cursor.execute("""
-        SELECT Groups.GroupName, COUNT(Votes.VoteID)
-        FROM Groups
-        LEFT JOIN Votes
-        ON Groups.GroupID = Votes.GroupID
-        GROUP BY Groups.GroupID
-        ORDER BY COUNT(Votes.VoteID) DESC
-    """)
-
-    results = cursor.fetchall()
-
-    conn.close()
-
-    return render_template("vote_results.html",results=results)
-
 if __name__ == "__main__":
     app.run(debug=True)
