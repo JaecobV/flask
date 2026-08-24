@@ -156,7 +156,6 @@ img{
 }
 
 /* columns */
-
 .left{
     display: flex;
     flex-direction: column;
@@ -210,7 +209,7 @@ nav{
     margin-bottom: 30px;
 }
 
-/*aespa page*/
+/*group page colour themes*/
 .group-page.aespa{
     color: rgb(167, 109, 255);
 }

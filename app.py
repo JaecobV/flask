@@ -55,6 +55,7 @@ def home():
 
     return render_template("home.html", results=results, search=search, group_type=group_type)
 
+#group page
 @app.route("/Group/<int:id>")
 def Group(id):
 
@@ -88,6 +89,7 @@ def Group(id):
     group = query_db(group_sql, (id,), True)
     return render_template("group.html", members=members, group=group)
 
+#companies page
 @app.route("/companies")
 def Companies():
 
@@ -106,6 +108,7 @@ def Companies():
 
     return render_template("companies.html", companies=companies)
 
+#company page
 @app.route("/company/<int:company_id>")
 def company(company_id):
 
@@ -124,6 +127,7 @@ def company(company_id):
 
     return render_template("company.html", company=company)
 
+#register form page
 @app.route("/register", methods=["GET", "POST"])
 def register():
 
@@ -157,6 +161,7 @@ def register():
 
     return render_template("register.html")
 
+#login form page
 @app.route("/login", methods=["GET", "POST"])
 def login():
 
@@ -190,7 +195,7 @@ def login():
     return render_template("login.html")
 
 
-
+#logout page
 @app.route("/logout")
 def logout():
 
@@ -198,6 +203,7 @@ def logout():
 
     return redirect(url_for("home"))
 
+#group voting page
 @app.route("/vote", methods=["GET", "POST"])
 def vote():
 
