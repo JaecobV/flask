@@ -273,5 +273,11 @@ def vote():
 
     return render_template("vote.html",groups=groups,already_voted=False)
 
+@app.errorhandler(404)
+def page_not_found(error):
+    """Display a custom page when a requested page cannot be found."""
+    return render_template("404.html"), 404
+
+
 if __name__ == "__main__":
     app.run(debug=True)
