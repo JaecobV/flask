@@ -1,17 +1,31 @@
-from flask import Flask, g, render_template, request, redirect, url_for, session
-from werkzeug.security import generate_password_hash, check_password_hash
+import os
 import sqlite3
 
-DATABASE = 'database.db'
+from flask import (
+    Flask,
+    g, 
+    redirect,
+    render_template, 
+    request,
+    session,
+    url_for,
+)
+from werkzeug.security import check_password_hash,
+generate_password_hash
+
+
+DATABASE = os.path.join(os.path.dirname(__file__), 'database.db')
 
 app = Flask(__name__)
 app.secret_key = "random-secret-key-for-me"
+
 
 @app.teardown_appcontext
 def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
+
         
 def get_db():
     db = getattr(g, '_database', None)
@@ -19,11 +33,13 @@ def get_db():
         db = g._database = sqlite3.connect(DATABASE)
     return db
 
+
 def query_db(query, args=(), one=False):
     cur = get_db().execute(query, args)
     rv = cur.fetchall()
     cur.close()
     return (rv[0] if rv else None) if one else rv
+
 
 @app.route('/')
 def home():
@@ -33,7 +49,11 @@ def home():
 
     if group_type:
         sql = """
-            SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+            SELECT GroupID,
+                   GroupName,
+                   TopSongs,
+                   DebutDate,
+                   GroupImage
             FROM Groups
             WHERE GroupType = ?;
             """
@@ -41,91 +61,124 @@ def home():
 
     elif search: 
         sql = """   
-            SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+            SELECT GroupID,
+                   GroupName, 
+                   TopSongs,
+                   DebutDate,
+                   GroupImage
             FROM Groups
             WHERE GroupName LIKE ?;
             """
         results = query_db(sql, ('%' + search + '%',))
     else: 
         sql = """
-            SELECT GroupID, GroupName, TopSongs, DebutDate, GroupImage
+            SELECT GroupID,
+                   GroupName,
+                   TopSongs,
+                   DebutDate,
+                   GroupImage
             FROM Groups;
             """
         results = query_db(sql)
 
-    return render_template("home.html", results=results, search=search, group_type=group_type)
+    return render_template("home.html",
+            results=results,
+            search=search,
+            group_type=group_type
+        )
+
 
 #group page
-@app.route("/Group/<int:id>")
-def Group(id):
+@app.route("/group/<int:group_id>")
+def group(group_id):
 
     member_sql = """
         SELECT Members.MemberNames,
-        Members.MemberImage,
-        MemberInfo.BirthName,
-        MemberInfo.BirthDate,
-        MemberInfo.Nationality,
-        MemberInfo.Position,
-        MemberInfo.FunFact
+               Members.MemberImage,
+               MemberInfo.BirthName,
+               MemberInfo.BirthDate,
+               MemberInfo.Nationality,
+               MemberInfo.Position,
+               MemberInfo.FunFact
         FROM Members
         JOIN MemberInfo ON Members.MemberID = MemberInfo.MemberID
         WHERE Members.GroupID = ?;
-        """
+    """
 
     group_sql = """
         SELECT Groups.GroupName, 
-        Groups.TopSongs, 
-        Groups.DebutDate,
-        Groups.GroupImage,
-        Groups.GroupImageAlt,
-        Groups.VideoURL,
-        Groups.ThemeClass,
-        Groups.GroupSong
+               Groups.TopSongs, 
+               Groups.DebutDate,
+               Groups.GroupImage,
+               Groups.GroupImageAlt,
+               Groups.VideoURL,
+               Groups.ThemeClass,
+               Groups.GroupSong
         FROM Groups
         WHERE GroupID = ?;
-        """
+    """
 
-    members = query_db(member_sql, (id,))
-    group = query_db(group_sql, (id,), True)
-    return render_template("group.html", members=members, group=group)
+    members = query_db(member_sql, (group_id,))
+    group_data = query_db(group_sql, (group_id,), True)
+
+    if group_data is None:
+        return render_template("404.html"), 404
+
+    return render_template(
+        "group.html",
+        members=members,
+        group=group_data,
+    )
+
 
 #companies page
 @app.route("/companies")
-def Companies():
+def companies():
 
-    companies = query_db("""
+    company_list = query_db("""
         SELECT CompanyID,
-        CompanyName,
-        CompanyLogo,
-        FoundedYear,
-        Founder,
-        CEO,
-        Headquarters,
-        Description
+               CompanyName,
+               CompanyLogo,
+               FoundedYear,
+               Founder,
+               CEO,
+               Headquarters,
+               Description
         FROM Companies
         ORDER BY CompanyName
-        """)
+    """)
 
-    return render_template("companies.html", companies=companies)
+    return render_template(
+        "companies.html",
+        companies=company_list,
+    )
+
 
 #company page
 @app.route("/company/<int:company_id>")
 def company(company_id):
 
-    company = query_db("""
+    company_data = query_db("""
         SELECT CompanyID,
-        CompanyName,
-        CompanyLogo,
-        FoundedYear,
-        Founder,
-        CEO,
-        Headquarters,
-        Description
+               CompanyName,
+               CompanyLogo,
+               FoundedYear,
+               Founder,
+               CEO,
+               Headquarters,
+               Description
         FROM Companies
         WHERE CompanyID = ?
     """, (company_id,), True)
 
-    return render_template("company.html", company=company)
+    if company_data is None:
+        return render_template("404.html"), 404
+
+
+    return render_template(
+        "company.html",
+        company=company_data
+    )
 
 #register form page
 @app.route("/register", methods=["GET", "POST"])
