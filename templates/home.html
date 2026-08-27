@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
-<!--home page goes here-->
-    <!--shared header and nav bar-->
+
+
+<!-- Home page -->
 <div class="hero">
     <div class="title">
         <h1>Korean Music Bands</h1>
@@ -10,25 +11,43 @@
 </div>
 
 
-<!--3 column grid-->
- <div class="three-column">
-    {% for Group in results %}
-    <a href="{{url_for('Group', id=Group[0])}}">
+
+
+<!-- 3 column grid -->
+<div class="three-column">
+
+
+    {% for group in results %}
+
+
+    <a href="{{ url_for('group', group_id=group[0]) }}">
         <div class="w3-card-4 card">
-            <!--the name then the image-->
-            <h1>{{ Group[1] }}</h1>
-            <img src="{{ Group[4] }}" alt="{{ Group[1] }}">
+
+
+            <!-- Group name -->
+            <h1>{{ group[1] }}</h1>
+
+
+            <!-- Group image -->
+            <img src="{{ group[4] }}" alt="{{ group[1] }}">
+
+
         </div>
     </a>
 
+
     {% else %}
 
+
     <h2>No groups found.</h2>
-    <p>Try searching for another group</p>
+    <p>Try searching for another group.</p>
+
 
     {% endfor %}
 
- </div>
+
+</div>
 
 
 {% endblock %}
+

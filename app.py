@@ -10,8 +10,7 @@ from flask import (
     session,
     url_for,
 )
-from werkzeug.security import check_password_hash,
-generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 
 DATABASE = os.path.join(os.path.dirname(__file__), 'database.db')
@@ -41,8 +40,9 @@ def query_db(query, args=(), one=False):
     return (rv[0] if rv else None) if one else rv
 
 
-@app.route('/')
+@app.route("/")
 def home():
+
     #home page
     search = request.args.get("search", "").strip()
     group_type = request.args.get("type", "").strip()
@@ -55,37 +55,45 @@ def home():
                    DebutDate,
                    GroupImage
             FROM Groups
-            WHERE GroupType = ?;
-            """
+            WHERE GroupType = ?
+            ORDER BY GroupName;
+        """
         results = query_db(sql, (group_type,))
 
-    elif search: 
-        sql = """   
-            SELECT GroupID,
-                   GroupName, 
-                   TopSongs,
-                   DebutDate,
-                   GroupImage
-            FROM Groups
-            WHERE GroupName LIKE ?;
-            """
-        results = query_db(sql, ('%' + search + '%',))
-    else: 
+
+    elif search:
         sql = """
             SELECT GroupID,
                    GroupName,
                    TopSongs,
                    DebutDate,
                    GroupImage
-            FROM Groups;
-            """
+            FROM Groups
+            WHERE GroupName LIKE ?
+            ORDER BY GroupName;
+        """
+        results = query_db(sql, ("%" + search + "%",))
+
+
+    else:
+        sql = """
+            SELECT GroupID,
+                   GroupName,
+                   TopSongs,
+                   DebutDate,
+                   GroupImage
+            FROM Groups
+            ORDER BY GroupName;
+        """
         results = query_db(sql)
 
-    return render_template("home.html",
-            results=results,
-            search=search,
-            group_type=group_type
-        )
+
+    return render_template(
+        "home.html",
+        results=results,
+        search=search,
+        group_type=group_type,
+    )
 
 
 #group page
@@ -120,6 +128,7 @@ def group(group_id):
 
     members = query_db(member_sql, (group_id,))
     group_data = query_db(group_sql, (group_id,), True)
+
 
     if group_data is None:
         return render_template("404.html"), 404
