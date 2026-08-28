@@ -144,7 +144,8 @@ def group(group_id):
 @app.route("/companies")
 def companies():
 
-    company_list = query_db("""
+    company_list = query_db(
+        """
         SELECT CompanyID,
                CompanyName,
                CompanyLogo,
@@ -154,8 +155,10 @@ def companies():
                Headquarters,
                Description
         FROM Companies
-        ORDER BY CompanyName
-    """)
+        ORDER BY CompanyName;
+        """
+    )
+
 
     return render_template(
         "companies.html",
@@ -167,7 +170,8 @@ def companies():
 @app.route("/company/<int:company_id>")
 def company(company_id):
 
-    company_data = query_db("""
+    company_data = query_db(
+        """
         SELECT CompanyID,
                CompanyName,
                CompanyLogo,
@@ -177,8 +181,12 @@ def company(company_id):
                Headquarters,
                Description
         FROM Companies
-        WHERE CompanyID = ?
-    """, (company_id,), True)
+        WHERE CompanyID = ?;
+        """,
+        (company_id,),
+        True,
+    )
+
 
     if company_data is None:
         return render_template("404.html"), 404
@@ -186,8 +194,9 @@ def company(company_id):
 
     return render_template(
         "company.html",
-        company=company_data
+        company=company_data,
     )
+
 
 #register form page
 @app.route("/register", methods=["GET", "POST"])

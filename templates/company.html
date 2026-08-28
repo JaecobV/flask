@@ -1,27 +1,41 @@
 {% extends "layout.html" %}
 
+
 {% block body %}
+
 
 <div class="company-page">
 
+
     <h1>{{ company[1] }}</h1>
+
 
     <img class="company-logo" src="{{ company[2] }}" alt="{{ company[1] }}">
 
+
     <div class="company-info">
+
 
         <p><strong>Founded:</strong> {{ company[3] }}</p>
 
+
         <p><strong>Founder:</strong> {{ company[4] }}</p>
+
 
         <p><strong>CEO:</strong> {{ company[5] }}</p>
 
+
         <p><strong>Headquarters:</strong> {{ company[6] }}</p>
+
 
         <p>{{ company[7] }}</p>
 
+
     </div>
+
 
 </div>
 
+
 {% endblock %}
+
