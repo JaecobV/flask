@@ -1,19 +1,39 @@
 {% extends "layout.html" %}
 
+
 {% block body %}
+
 
 <h1>Favourite Group Results</h1>
 
+
 {% for result in results %}
 
-<div class="w3-card-4 card">
 
-    <h2>{{ loop.index }}. {{ result[0] }}</h2>
+    <div class="w3-card-4 card">
 
-    <p>{{ result[1] }} vote(s)</p>
 
-</div>
+        <h2>
+            {{ loop.index }}. {{ result[0] }}
+        </h2>
+
+
+        <p>
+            {{ result[1] }} vote(s)
+        </p>
+
+
+    </div>
+
+
+{% else %}
+
+
+    <p>No votes have been submitted yet.</p>
+
 
 {% endfor %}
 
+
 {% endblock %}
+

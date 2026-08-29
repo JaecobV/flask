@@ -232,6 +232,7 @@ def register():
 
     return render_template("register.html")
 
+
 #login form page
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -274,6 +275,7 @@ def logout():
 
     return redirect(url_for("home"))
 
+
 #group voting page
 @app.route("/vote", methods=["GET", "POST"])
 def vote():
@@ -281,68 +283,159 @@ def vote():
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
 
+    conn = get_db()
     user_id = session["user_id"]
 
-    #checks if the user has already voted
-    cursor.execute("SELECT * FROM Votes WHERE UserID = ?",(user_id,))
 
-    existing_vote = cursor.fetchone()
+    existing_vote = conn.execute(
+        """
+        SELECT VoteID
+        FROM Votes
+        WHERE UserID = ?
+        """,
+        (user_id,),
+    ).fetchone()
 
-    #if the user submits a vote
-    if request.method == "POST" and not existing_vote:
 
-        group_id = request.form["group_id"]
+    if existing_vote:
+        groups = query_db(
+            """
+            SELECT GroupID,
+                   GroupName,
+                   GroupImage
+            FROM Groups
+            ORDER BY GroupName;
+            """
+        )
 
-        cursor.execute("INSERT INTO Votes (UserID, GroupID) VALUES (?, ?)",(user_id, group_id))
+
+        results = conn.execute(
+            """
+            SELECT Groups.GroupName,
+                   COUNT(Votes.VoteID) AS VoteCount
+            FROM Groups
+            LEFT JOIN Votes
+                ON Groups.GroupID = Votes.GroupID
+            GROUP BY Groups.GroupID
+            ORDER BY VoteCount DESC;
+            """
+        ).fetchall()
+
+
+        return render_template(
+            "vote.html",
+            groups=groups,
+            already_voted=True,
+            results=results,
+            error="You have already voted.",
+        )
+
+
+    if request.method == "POST":
+        group_id = request.form.get("group_id")
+
+
+        if not group_id:
+            groups = query_db(
+                """
+                SELECT GroupID,
+                       GroupName,
+                       GroupImage
+                FROM Groups
+                ORDER BY GroupName;
+                """
+            )
+
+
+            return render_template(
+                "vote.html",
+                groups=groups,
+                already_voted=False,
+                error="Please select a group before voting.",
+            )
+
+
+        group_data = query_db(
+            """
+            SELECT GroupID
+            FROM Groups
+            WHERE GroupID = ?
+            """,
+            (group_id,),
+            True,
+        )
+
+
+        if group_data is None:
+            groups = query_db(
+                """
+                SELECT GroupID,
+                       GroupName,
+                       GroupImage
+                FROM Groups
+                ORDER BY GroupName;
+                """
+            )
+
+
+            return render_template(
+                "vote.html",
+                groups=groups,
+                already_voted=False,
+                error="Invalid group selected.",
+            )
+
+
+        conn.execute(
+            """
+            INSERT INTO Votes (UserID, GroupID)
+            VALUES (?, ?)
+            """,
+            (user_id, group_id),
+        )
+
 
         conn.commit()
 
-        #it gets the results after voting
-        cursor.execute("""
-            SELECT Groups.GroupName, COUNT(Votes.VoteID)
+
+        results = conn.execute(
+            """
+            SELECT Groups.GroupName,
+                   COUNT(Votes.VoteID) AS VoteCount
             FROM Groups
             LEFT JOIN Votes
-            ON Groups.GroupID = Votes.GroupID
+                ON Groups.GroupID = Votes.GroupID
             GROUP BY Groups.GroupID
-            ORDER BY COUNT(Votes.VoteID) DESC
-        """)
+            ORDER BY VoteCount DESC;
+            """
+        ).fetchall()
 
-        results = cursor.fetchall()
 
-        conn.close()
+        return render_template(
+            "vote.html",
+            already_voted=True,
+            results=results,
+        )
 
-        return render_template("vote.html",already_voted=True,results=results)
 
-    #if they have already voted get the results
-    if existing_vote:
-
-        cursor.execute("""
-            SELECT Groups.GroupName, COUNT(Votes.VoteID)
-            FROM Groups
-            LEFT JOIN Votes
-            ON Groups.GroupID = Votes.GroupID
-            GROUP BY Groups.GroupID
-            ORDER BY COUNT(Votes.VoteID) DESC
-        """)
-
-        results = cursor.fetchall()
-
-        conn.close()
-
-        return render_template("vote.html",already_voted=True,results=results)
-
-    #shows the group name for users to vote if they havent
-    groups = query_db("""
-        SELECT GroupID, GroupName
+    groups = conn.execute(
+        """
+        SELECT GroupID,
+               GroupName,
+               GroupImage
         FROM Groups
-    """)
+        ORDER BY GroupName;
+        """
+    ).fetchall()
 
-    conn.close()
 
-    return render_template("vote.html",groups=groups,already_voted=False)
+    return render_template(
+        "vote.html",
+        groups=groups,
+        already_voted=False,
+    )
+
 
 @app.errorhandler(404)
 def page_not_found(error):

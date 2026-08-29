@@ -1,74 +1,140 @@
 {% extends "layout.html" %}
 
+
 {% block body %}
+
 
 <h1>Vote for Your Favourite Group</h1>
 
+
+
+
 {% if already_voted %}
+
 
     <h2>You have already voted!</h2>
 
+
     <h2>Current Results</h2>
+
 
     {% for result in results %}
 
+
         <div class="w3-card-4 card">
+
 
             <h3>
                 {{ loop.index }}. {{ result[0] }}
             </h3>
 
+
             <p>
                 {{ result[1] }} vote(s)
             </p>
 
+
         </div>
+
+
+    {% else %}
+
+
+        <p>No votes have been submitted yet.</p>
+
 
     {% endfor %}
 
+
+
+
 {% else %}
+
+
+    {% if error %}
+
+
+        <p class="error">
+            {{ error }}
+        </p>
+
+
+    {% endif %}
+
+
+
 
     <form method="POST">
 
+
         <div class="three-column">
+
 
             {% for group in groups %}
 
-            <div class="w3-card-4 card">
 
-                <img
-                    class="group-img"
-                    src="{{ group[4] }}"
-                    alt="{{ group[1] }}"
-                >
+                <div class="w3-card-4 card">
 
-                <h2>{{ group[1] }}</h2>
 
-                <label>
-                    <input
-                        type="radio"
-                        name="group_id"
-                        value="{{ group[0] }}"
-                        required
+                    <img
+                        class="group-img"
+                        src="{{ group[2] }}"
+                        alt="{{ group[1] }}"
                     >
 
-                    Vote for {{ group[1] }}
-                </label>
 
-            </div>
+                    <h2>
+                        {{ group[1] }}
+                    </h2>
+
+
+                    <label>
+
+
+                        <input
+                            type="radio"
+                            name="group_id"
+                            value="{{ group[0] }}"
+                            required
+                        >
+
+
+                        Vote for {{ group[1] }}
+
+
+                    </label>
+
+
+                </div>
+
+
+            {% else %}
+
+
+                <p>No groups are available to vote for.</p>
+
 
             {% endfor %}
 
+
         </div>
 
+
+
+
         <br>
+
 
         <button type="submit">
             Submit Vote
         </button>
 
+
     </form>
+
 
 {% endif %}
 
+
 {% endblock %}
+
