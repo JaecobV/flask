@@ -17,17 +17,11 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-
-
 DATABASE = os.path.join(os.path.dirname(__file__), "database.db")
-
-
 
 
 app = Flask(__name__)
 app.secret_key = "random-secret-key-for-me"
-
-
 
 
 @app.teardown_appcontext
@@ -38,8 +32,6 @@ def close_connection(exception):
 
     if db is not None:
         db.close()
-
-
 
 
 def get_db():
@@ -53,8 +45,6 @@ def get_db():
 
 
     return db
-
-
 
 
 def query_db(query, args=(), one=False):
@@ -71,17 +61,16 @@ def query_db(query, args=(), one=False):
     return results
 
 
-
-
 @app.route("/")
 def home():
     """Display the homepage and allow users to search and filter groups."""
 
-
+    # Gets the search text and group type from the URL.
+    # strip() removes any unnecessary spaces entered by the user.
     search = request.args.get("search", "").strip()
     group_type = request.args.get("type", "").strip()
 
-
+    # If a group type has been selected, only groups matching that type are retrieved from the database.
     if group_type:
         sql = """
             SELECT GroupID,
@@ -95,7 +84,8 @@ def home():
         """
         results = query_db(sql, (group_type,))
 
-
+    # If the user entered a search term, find groups whose names contain the search text. 
+    # The % symbols allow partial matches.
     elif search:
         sql = """
             SELECT GroupID,
@@ -109,7 +99,7 @@ def home():
         """
         results = query_db(sql, ("%" + search + "%",))
 
-
+    # If there is no search or filter, display all groups.
     else:
         sql = """
             SELECT GroupID,
@@ -122,7 +112,7 @@ def home():
         """
         results = query_db(sql)
 
-
+    # Sends the database results and the current search/filter values to the HTML template so they can be displayed on the homepage.
     return render_template(
         "home.html",
         results=results,
@@ -131,13 +121,12 @@ def home():
     )
 
 
-
-
 @app.route("/group/<int:group_id>")
 def group(group_id):
     """Display information about a specific music group."""
 
-
+    # Retrieves member information for the selected group.
+    # Members and MemberInfo are joined using MemberID so information from both tables can be displayed together.
     member_sql = """
         SELECT Members.MemberNames,
                Members.MemberImage,
@@ -152,7 +141,8 @@ def group(group_id):
         WHERE Members.GroupID = ?;
     """
 
-
+    # Retrieves the main information for the selected group.
+    # The group_id from the URL is used to make sure the correct group is displayed.
     group_sql = """
         SELECT Groups.GroupName,
                Groups.TopSongs,
@@ -170,7 +160,7 @@ def group(group_id):
     members = query_db(member_sql, (group_id,))
     group_data = query_db(group_sql, (group_id,), True)
 
-
+    # If the group ID does not exist in the database, display the custom 404 page instead of trying to display an empty group page.
     if group_data is None:
         return render_template("404.html"), 404
 
@@ -180,8 +170,6 @@ def group(group_id):
         members=members,
         group=group_data,
     )
-
-
 
 
 @app.route("/companies")
@@ -209,8 +197,6 @@ def companies():
         "companies.html",
         companies=company_list,
     )
-
-
 
 
 @app.route("/company/<int:company_id>")
@@ -246,8 +232,6 @@ def company(company_id):
     )
 
 
-
-
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """Allow a new user to create an account."""
@@ -257,21 +241,22 @@ def register():
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
 
-
+        # Checks that both required fields have been entered before attempting to create an account.
         if not username or not password:
             return render_template(
                 "register.html",
                 error="Please enter a username and password.",
             )
 
-
+        # Makes sure the password meets the minimum length requirement before allowing the account to be created.
         if len(password) < 8:
             return render_template(
                 "register.html",
                 error="Password must be at least 8 characters long.",
             )
 
-
+        # Hashes the password before storing it in the database.
+        # This means the user's actual password is not stored directly.
         hashed_password = generate_password_hash(password)
 
 
@@ -287,10 +272,10 @@ def register():
                 (username, hashed_password),
             )
 
-
+            # Saves the new account permanently to the database.
             conn.commit()
 
-
+            # Sends the user to the login page after successful registration.
             return redirect(url_for("login"))
 
 
@@ -304,25 +289,24 @@ def register():
     return render_template("register.html")
 
 
-
-
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """Allow an existing user to log into their account."""
 
 
     if request.method == "POST":
+        # Gets the login details submitted by the user.
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "")
 
-
+        # Checks that the user has entered both required login fields.
         if not username or not password:
             return render_template(
                 "login.html",
                 error="Please enter a username and password.",
             )
 
-
+        # Finds the account matching the entered username.
         user = query_db(
             """
             SELECT UserID,
@@ -335,7 +319,7 @@ def login():
             one=True,
         )
 
-
+        # Checks that the username exists and that the entered password matches the stored password hash.
         if user and check_password_hash(user["Password"], password):
             session["user_id"] = user["UserID"]
             session["username"] = user["Username"]
@@ -343,7 +327,7 @@ def login():
 
             return redirect(url_for("home"))
 
-
+        # If the account does not exist or the password is incorrect, display an error instead of logging the user in.
         return render_template(
             "login.html",
             error="Incorrect username or password.",
@@ -351,8 +335,6 @@ def login():
 
 
     return render_template("login.html")
-
-
 
 
 @app.route("/logout")
@@ -370,12 +352,15 @@ def logout():
 def vote():
     """Allow logged-in users to vote for their favourite group."""
 
+    # Voting is only available to logged-in users.
+    # If the user is not logged in, they are redirected to the login page.
     if "user_id" not in session:
         return redirect(url_for("login"))
 
     conn = get_db()
     user_id = session["user_id"]
 
+    # Checks the Votes table to see whether the current user has already submitted a vote.
     existing_vote = conn.execute(
         """
         SELECT VoteID
@@ -385,6 +370,7 @@ def vote():
         (user_id,),
     ).fetchone()
 
+    # If the user has already voted, they cannot submit another vote.
     if existing_vote:
         results = conn.execute(
             """
@@ -405,8 +391,9 @@ def vote():
         )
 
     if request.method == "POST":
+        # Gets the group selected by the user from the voting form.
         group_id = request.form.get("group_id")
-
+        # Checks that the user actually selected a group.
         if not group_id:
             groups = query_db(
                 """
@@ -463,6 +450,8 @@ def vote():
 
         conn.commit()
 
+        # Counts how many votes each group has received.
+        # LEFT JOIN is used so groups with zero votes are also included in the results instead of being left out.
         results = conn.execute(
             """
             SELECT Groups.GroupName,
@@ -501,8 +490,6 @@ def vote():
 def page_not_found(error):
     """Display a custom page when a requested page cannot be found."""
     return render_template("404.html"), 404
-
-
 
 
 if __name__ == "__main__":
