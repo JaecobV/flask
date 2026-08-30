@@ -1,11 +1,15 @@
+"""Flask application for browsing Korean music groups and voting."""
+
+
 import os
 import sqlite3
 
+
 from flask import (
     Flask,
-    g, 
+    g,
     redirect,
-    render_template, 
+    render_template,
     request,
     session,
     url_for,
@@ -13,39 +17,70 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash
 
 
-DATABASE = os.path.join(os.path.dirname(__file__), 'database.db')
+
+
+DATABASE = os.path.join(os.path.dirname(__file__), "database.db")
+
+
+
 
 app = Flask(__name__)
 app.secret_key = "random-secret-key-for-me"
 
 
+
+
 @app.teardown_appcontext
 def close_connection(exception):
-    db = getattr(g, '_database', None)
+    """Close the database connection when the request ends."""
+    db = getattr(g, "_database", None)
+
+
     if db is not None:
         db.close()
 
-        
+
+
+
 def get_db():
-    db = getattr(g, '_database', None)
+    """Return the current database connection."""
+    db = getattr(g, "_database", None)
+
+
     if db is None:
         db = g._database = sqlite3.connect(DATABASE)
+        db.row_factory = sqlite3.Row
+
+
     return db
 
 
+
+
 def query_db(query, args=(), one=False):
+    """Run a database query and return the results."""
     cur = get_db().execute(query, args)
-    rv = cur.fetchall()
+    results = cur.fetchall()
     cur.close()
-    return (rv[0] if rv else None) if one else rv
+
+
+    if one:
+        return results[0] if results else None
+
+
+    return results
+
+
 
 
 @app.route("/")
 def home():
+    """Display the homepage and allow users to search and filter groups."""
 
-    #home page
+
     search = request.args.get("search", "").strip()
     group_type = request.args.get("type", "").strip()
+
 
     if group_type:
         sql = """
@@ -96,9 +131,12 @@ def home():
     )
 
 
-#group page
+
+
 @app.route("/group/<int:group_id>")
 def group(group_id):
+    """Display information about a specific music group."""
+
 
     member_sql = """
         SELECT Members.MemberNames,
@@ -109,13 +147,15 @@ def group(group_id):
                MemberInfo.Position,
                MemberInfo.FunFact
         FROM Members
-        JOIN MemberInfo ON Members.MemberID = MemberInfo.MemberID
+        JOIN MemberInfo
+            ON Members.MemberID = MemberInfo.MemberID
         WHERE Members.GroupID = ?;
     """
 
+
     group_sql = """
-        SELECT Groups.GroupName, 
-               Groups.TopSongs, 
+        SELECT Groups.GroupName,
+               Groups.TopSongs,
                Groups.DebutDate,
                Groups.GroupImage,
                Groups.GroupImageAlt,
@@ -126,12 +166,14 @@ def group(group_id):
         WHERE GroupID = ?;
     """
 
+
     members = query_db(member_sql, (group_id,))
     group_data = query_db(group_sql, (group_id,), True)
 
 
     if group_data is None:
         return render_template("404.html"), 404
+
 
     return render_template(
         "group.html",
@@ -140,9 +182,12 @@ def group(group_id):
     )
 
 
-#companies page
+
+
 @app.route("/companies")
 def companies():
+    """Display all entertainment companies."""
+
 
     company_list = query_db(
         """
@@ -166,9 +211,12 @@ def companies():
     )
 
 
-#company page
+
+
 @app.route("/company/<int:company_id>")
 def company(company_id):
+    """Display information about a specific entertainment company."""
+
 
     company_data = query_db(
         """
@@ -198,87 +246,130 @@ def company(company_id):
     )
 
 
-#register form page
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    """Allow a new user to create an account."""
+
 
     if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
-        username = request.form["username"]
-        password = request.form["password"]
 
-        #checks how long the password is
+        if not username or not password:
+            return render_template(
+                "register.html",
+                error="Please enter a username and password.",
+            )
+
+
         if len(password) < 8:
-            return render_template("register.html",error="Password must be at least 8 characters long.")
+            return render_template(
+                "register.html",
+                error="Password must be at least 8 characters long.",
+            )
+
 
         hashed_password = generate_password_hash(password)
 
-        conn = sqlite3.connect("database.db")
-        cursor = conn.cursor()
+
+        conn = get_db()
+
 
         try:
-            cursor.execute("INSERT INTO Users (Username, Password) VALUES (?, ?)",(username, hashed_password))
+            conn.execute(
+                """
+                INSERT INTO Users (Username, Password)
+                VALUES (?, ?)
+                """,
+                (username, hashed_password),
+            )
+
 
             conn.commit()
-            conn.close()
+
 
             return redirect(url_for("login"))
 
+
         except sqlite3.IntegrityError:
+            return render_template(
+                "register.html",
+                error="Username already exists.",
+            )
 
-            conn.close()
-
-            return render_template("register.html",error="Username already exists.")
 
     return render_template("register.html")
 
 
-#login form page
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    """Allow an existing user to log into their account."""
+
 
     if request.method == "POST":
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
-        username = request.form["username"]
-        password = request.form["password"]
 
-        conn = sqlite3.connect("database.db")
-        cursor = conn.cursor()
-
-        cursor.execute(
-            "SELECT * FROM Users WHERE Username = ?",
-            (username,)
+        if not username or not password:
+            return render_template(
+                "login.html",
+                error="Please enter a username and password.",
             )
 
-        user = cursor.fetchone()
 
-        conn.close()
+        user = query_db(
+            """
+            SELECT UserID,
+                   Username,
+                   Password
+            FROM Users
+            WHERE Username = ?
+            """,
+            (username,),
+            one=True,
+        )
 
-        if user and check_password_hash(user[2], password):
 
-            session["user_id"] = user[0]
-            session["username"] = user[1]
+        if user and check_password_hash(user["Password"], password):
+            session["user_id"] = user["UserID"]
+            session["username"] = user["Username"]
+
 
             return redirect(url_for("home"))
 
-        else:
-            return render_template("login.html",error="Incorrect username or password.")
+
+        return render_template(
+            "login.html",
+            error="Incorrect username or password.",
+        )
+
 
     return render_template("login.html")
 
 
-#logout page
+
+
 @app.route("/logout")
 def logout():
+    """Log the current user out and return to the homepage."""
+
 
     session.clear()
+
 
     return redirect(url_for("home"))
 
 
-#group voting page
 @app.route("/vote", methods=["GET", "POST"])
 def vote():
+    """Allow logged-in users to vote for their favourite group."""
+
 
     if "user_id" not in session:
         return redirect(url_for("login"))
@@ -437,10 +528,14 @@ def vote():
     )
 
 
+
+
 @app.errorhandler(404)
 def page_not_found(error):
     """Display a custom page when a requested page cannot be found."""
     return render_template("404.html"), 404
+
+
 
 
 if __name__ == "__main__":
