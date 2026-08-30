@@ -370,14 +370,11 @@ def logout():
 def vote():
     """Allow logged-in users to vote for their favourite group."""
 
-
     if "user_id" not in session:
         return redirect(url_for("login"))
 
-
     conn = get_db()
     user_id = session["user_id"]
-
 
     existing_vote = conn.execute(
         """
@@ -388,19 +385,7 @@ def vote():
         (user_id,),
     ).fetchone()
 
-
     if existing_vote:
-        groups = query_db(
-            """
-            SELECT GroupID,
-                   GroupName,
-                   GroupImage
-            FROM Groups
-            ORDER BY GroupName;
-            """
-        )
-
-
         results = conn.execute(
             """
             SELECT Groups.GroupName,
@@ -413,19 +398,14 @@ def vote():
             """
         ).fetchall()
 
-
         return render_template(
             "vote.html",
-            groups=groups,
             already_voted=True,
             results=results,
-            error="You have already voted.",
         )
-
 
     if request.method == "POST":
         group_id = request.form.get("group_id")
-
 
         if not group_id:
             groups = query_db(
@@ -438,14 +418,12 @@ def vote():
                 """
             )
 
-
             return render_template(
                 "vote.html",
                 groups=groups,
                 already_voted=False,
                 error="Please select a group before voting.",
             )
-
 
         group_data = query_db(
             """
@@ -456,7 +434,6 @@ def vote():
             (group_id,),
             True,
         )
-
 
         if group_data is None:
             groups = query_db(
@@ -469,14 +446,12 @@ def vote():
                 """
             )
 
-
             return render_template(
                 "vote.html",
                 groups=groups,
                 already_voted=False,
                 error="Invalid group selected.",
             )
-
 
         conn.execute(
             """
@@ -486,9 +461,7 @@ def vote():
             (user_id, group_id),
         )
 
-
         conn.commit()
-
 
         results = conn.execute(
             """
@@ -502,15 +475,13 @@ def vote():
             """
         ).fetchall()
 
-
         return render_template(
             "vote.html",
             already_voted=True,
             results=results,
         )
 
-
-    groups = conn.execute(
+    groups = query_db(
         """
         SELECT GroupID,
                GroupName,
@@ -518,17 +489,13 @@ def vote():
         FROM Groups
         ORDER BY GroupName;
         """
-    ).fetchall()
-
+    )
 
     return render_template(
         "vote.html",
         groups=groups,
         already_voted=False,
     )
-
-
-
 
 @app.errorhandler(404)
 def page_not_found(error):
