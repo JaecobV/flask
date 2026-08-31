@@ -22,7 +22,7 @@ app.secret_key = "random-secret-key-for-me"
 
 
 @app.teardown_appcontext
-def close_connection(exception):
+def close_connection(_exception):
     """Close the database connection when the request ends."""
 
     # Gets the database connection stored for the current request.
@@ -522,7 +522,7 @@ def vote():
 
 
 @app.errorhandler(404)
-def page_not_found(error):
+def page_not_found(_error):
     """Display a custom page when a requested page cannot be found."""
 
     # Flask calls this function when a user visits a URL that does not
