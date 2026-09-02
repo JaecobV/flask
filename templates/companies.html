@@ -1,46 +1,28 @@
 {% extends "layout.html" %}
-
-
 {% block body %}
-
 
 <h1>Entertainment Companies</h1>
 
 
 <div class="three-column">
-
-
     {% for company in companies %}
-
-
     <a href="{{ url_for('company', company_id=company[0]) }}" class="card-link">
         <div class="w3-card-4 card">
-
-
             <img
                 src="{{ company[2] }}"
                 alt="{{ company[1] }}"
             >
-
-
             <h2>{{ company[1] }}</h2>
-
-
         </div>
     </a>
 
 
     {% else %}
 
-
     <h2>No companies found.</h2>
-
 
     {% endfor %}
 
-
 </div>
 
-
 {% endblock %}
-

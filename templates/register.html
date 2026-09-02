@@ -1,9 +1,6 @@
 {% extends "layout.html" %}
-
 {% block body %}
-
 <div class="login-container">
-
     <h1>Create Account</h1>
 
     {% if error %}
@@ -11,21 +8,15 @@
     {% endif %}
 
     <form method="POST">
-
         <label>Username</label>
         <input type="text" name="username" required>
-
         <label>Password</label>
         <input type="password" name="password" required>
-
         <button type="submit">Register</button>
-
     </form>
 
     <p>Already have an account?</p>
-
     <a href="{{ url_for('login') }}">Login</a>
-
 </div>
 
 {% endblock %}
