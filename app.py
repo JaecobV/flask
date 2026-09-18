@@ -1,4 +1,5 @@
-"""An application about Korean music bands where you are able to vote, view and learn about different groups"""
+"""An application about Korean music bands where you are able to vote,
+view and learn about different groups."""
 import os
 import sqlite3
 
@@ -12,7 +13,6 @@ from flask import (
     session,
     url_for,
 )
-
 
 
 DATABASE = os.path.join(os.path.dirname(__file__), "database.db")
