@@ -1,8 +1,8 @@
-"""Flask application for browsing Korean music groups and voting."""
-
+"""An application about Korean music bands where you are able to vote, view and learn about different groups"""
 import os
 import sqlite3
 
+from werkzeug.security import check_password_hash, generate_password_hash
 from flask import (
     Flask,
     g,
@@ -12,7 +12,7 @@ from flask import (
     session,
     url_for,
 )
-from werkzeug.security import check_password_hash, generate_password_hash
+
 
 
 DATABASE = os.path.join(os.path.dirname(__file__), "database.db")
@@ -24,10 +24,6 @@ app.secret_key = "random-secret-key-for-me"
 @app.teardown_appcontext
 def close_connection(_exception):
     """Close the database connection when the request ends."""
-
-    # Gets the database connection stored for the current request.
-    # If a connection exists, it is closed so the database is not
-    # left open after the page has finished loading.
     db = getattr(g, "_database", None)
 
     if db is not None:
@@ -36,18 +32,10 @@ def close_connection(_exception):
 
 def get_db():
     """Return the current database connection."""
-
-    # Checks whether a database connection already exists for this request.
-    # This prevents the application from creating a new connection every
-    # time a database query is made.
     db = getattr(g, "_database", None)
 
     if db is None:
-        # Creates a connection to the SQLite database if one does not exist.
         db = g._database = sqlite3.connect(DATABASE)
-
-        # Allows database columns to be accessed using their column names
-        # instead of only using their numerical positions.
         db.row_factory = sqlite3.Row
 
     return db
@@ -55,16 +43,9 @@ def get_db():
 
 def query_db(query, args=(), one=False):
     """Run a database query and return the results."""
-
-    # Executes the SQL query using the supplied arguments.
-    # Parameters are used instead of directly adding user input to
-    # the SQL query.
     cur = get_db().execute(query, args)
     results = cur.fetchall()
     cur.close()
-
-    # If only one result is requested, return the first result.
-    # If there are no results, return None instead.
     if one:
         return results[0] if results else None
 
